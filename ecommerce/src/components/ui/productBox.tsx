@@ -12,14 +12,15 @@ const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
   }
 
   return (
-    <a href={`/product/${product?.handle}`}>
-      <div className="w-[200px] h-[300px] border border-zinc-300 rounded-md overflow-hidden relative">
+    <a className="block w-full" href={`/product/${product?.handle}`}>
+      <div className="w-full h-[300px] border border-zinc-300 rounded-md overflow-hidden relative">
         <Image
           src={product?.images?.[0]?.image}
           alt={product?.images?.[0]?.altText || product?.productName || "Product image"}
           fill={true}
           style={{ objectFit: "cover" }}
           loading="lazy"
+          sizes="(max-width: 768px) 200px, 300px"
         />
       </div>
       <div className="flex flex-col mt-3 w-full">
