@@ -471,16 +471,20 @@ Builder.registerComponent(Collection, {
       defaultValue: "all",
       enum: [
         {
-          label: "Featured",
+          label: "Featured / All",
           value: "all",
         },
         {
-          label: "Eyewear",
-          value: "womens-eyewear",
+          label: "Women",
+          value: "women",
         },
         {
-          label: "Handbags",
-          value: "handbags",
+          label: "Men",
+          value: "men",
+        },
+        {
+          label: "Accessories",
+          value: "accessories",
         },
       ],
     },

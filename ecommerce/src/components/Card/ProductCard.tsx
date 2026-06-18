@@ -71,9 +71,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           }
         />
       )}
-      {(dataSource === "Builder" || dataSource === "Shopstyle") && (
-        <ProductBox productData={product} dataSource={dataSource} />
-      )}
+      {dataSource === "Builder" && <ProductBox productData={product} />}
     </div>
   );
 };

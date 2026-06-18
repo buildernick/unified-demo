@@ -2,10 +2,9 @@ import Image from "next/image";
 
 interface ProductBoxProps {
   productData: any;
-  dataSource: string;
 }
 
-const ProductBox: React.FC<ProductBoxProps> = ({ productData, dataSource }) => {
+const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
   let product = productData?.data || productData?.value?.data;
   return (
     <a href={`/product/${product?.handle}`}>
@@ -14,7 +13,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ productData, dataSource }) => {
           src={product?.images?.[0]?.image}
           alt={product?.images?.[0]?.altText}
           fill={true}
-          objectFit={dataSource==="Shopstyle" ? "contain" : "cover"}
+          objectFit="cover"
           loading="lazy"
         />
       </div>
