@@ -6,7 +6,6 @@ import {
   builder,
   useIsPreviewing,
 } from "@builder.io/react";
-import DefaultErrorPage from "next/error";
 import "../builder-registry";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
@@ -27,8 +26,5 @@ export function RenderBuilderContent(props: BuilderPageProps) {
       </>
     );
   }
-  // If the "content" is falsy and the page is
-  // not being previewed in Builder, render the
-  // DefaultErrorPage with a 404.
-  return <DefaultErrorPage statusCode={404} />;
+  return null;
 }

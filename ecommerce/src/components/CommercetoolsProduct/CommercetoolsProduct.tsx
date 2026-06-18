@@ -16,11 +16,7 @@ const CommercetoolsProduct = ({ commercetoolsProduct }: { commercetoolsProduct: 
     };
     return (
         <div className="commercetools-product">
-        <ProductBox
-            // classes="w-72" // Ensure consistent width
-            productData={productData}
-            dataSource="Commercetools"
-        />
+        <ProductBox productData={productData} />
         </div>
     );
 };

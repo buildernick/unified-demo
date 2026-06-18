@@ -1,7 +1,6 @@
 "use client"
 import { builder, useIsPreviewing, BuilderContent } from "@builder.io/react";
 import { RenderBuilderContent } from "./builder";
-import DefaultErrorPage from "next/error";
 import "../builder-registry";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
@@ -34,8 +33,5 @@ export function RenderBuilderLiveDataPreview({ dataModelData, dataModelName, tem
       </>
     );
   }
-  // If the "content" is falsy and the page is
-  // not being previewed in Builder, render the
-  // DefaultErrorPage with a 404.
-  return <DefaultErrorPage statusCode={404} />;
+  return null;
 }

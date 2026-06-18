@@ -104,12 +104,9 @@ const EmporixProduct: React.FC<EmporixProductProps> = ({
 
   return (
     <div className="emporix-product">
-      <ProductBox
-        productData={productData}
-        dataSource="Emporix"
-      />
+      <ProductBox productData={productData} />
     </div>
   );
 };
 
-export default EmporixProduct; 
+export default EmporixProduct;

@@ -1,5 +1,4 @@
-import BuilderDevTools from "@builder.io/dev-tools/next";
-import { withHydrationOverlay } from "@builder.io/react-hydration-overlay/next";
+import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -66,17 +65,19 @@ const nextConfig = {
     serverComponentsExternalPackages: ["isolated-vm"],
   },
 };
-// export default nextConfig;
-const configWithOverlay = BuilderDevTools()(
-  BuilderDevTools()(
+export default async function config(phase) {
+  if (phase !== PHASE_DEVELOPMENT_SERVER) {
+    return nextConfig;
+  }
+
+  const [{ default: BuilderDevTools }, { withHydrationOverlay }] = await Promise.all([
+    import("@builder.io/dev-tools/next"),
+    import("@builder.io/react-hydration-overlay/next"),
+  ]);
+
+  return BuilderDevTools()(
     withHydrationOverlay({
-      /**
-       * Optional: `appRootSelector` is the selector for the root element of your app. By default, it is `#__next` which works
-       * for Next.js apps with pages directory. If you are using the app directory, you should change this to `main`.
-       */
       appRootSelector: "main",
     })(nextConfig)
-  )
-);
-
-export default configWithOverlay;
+  );
+}

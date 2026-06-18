@@ -45,10 +45,7 @@ const ShopifyProduct = ({ shopifyProductHandle }: { shopifyProductHandle: string
 
   return (
     <div className="shopify-product">
-      <ProductBox
-        productData={productData}
-        dataSource="Shopify"
-      />
+      <ProductBox productData={productData} />
     </div>
   );
 };

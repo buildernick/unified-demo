@@ -48,7 +48,7 @@ const SwellProduct = ({
 
   return (
     <div className="swell-product">
-      <ProductBox productData={productData} dataSource="Swell"/>
+      <ProductBox productData={productData} />
     </div>
   );
 };
