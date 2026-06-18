@@ -22,14 +22,14 @@ const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
           loading="lazy"
         />
       </div>
-      <div className="flex flex-col mt-5 w-full">
-        <div className="flex gap-5 justify-between w-full text-black text-left">
+      <div className="flex flex-col mt-3 w-full">
+        <div className="flex gap-3 justify-between w-full text-black text-left">
           <div className="text-ellipsis overflow-hidden break-words">
             {product?.productName}
           </div>
           <p className="font-semibold">${product?.price}</p>
         </div>
-        <p className="mt-2 text-left text-stone-500">
+        <p className="mt-1 text-left text-stone-500">
           {product?.colors?.[0]?.label}
         </p>
       </div>

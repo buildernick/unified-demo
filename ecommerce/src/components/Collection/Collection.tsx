@@ -53,10 +53,10 @@ export function Collection(props: {
   });
 
   return (
-    <div className="flex flex-row overflow-auto min-h-96">
+    <div className="flex flex-row flex-wrap justify-center gap-6 min-h-96">
       {products.data?.map((product, index) => (
         <ProductCard
-          classes="w-64 shrink-0 m-1 object-contain"
+          classes="w-[200px] shrink-0"
           key={`${product.id}-${index}`}
           dataSource="Builder"
           product={product}
