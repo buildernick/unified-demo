@@ -1,7 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../Card/ProductCard";
 
-const supportedCollections = new Set(["women", "men", "accessories"]);
+const collectionAliases: Record<string, string> = {
+  accessories: "accessories",
+  handbags: "accessories",
+  men: "men",
+  women: "women",
+  "womens-eyewear": "accessories",
+};
 
 function normalizeCollection(collection?: string) {
   const normalizedCollection = collection?.toLowerCase();
@@ -10,7 +16,7 @@ function normalizeCollection(collection?: string) {
     return "all";
   }
 
-  return supportedCollections.has(normalizedCollection) ? normalizedCollection : "all";
+  return collectionAliases[normalizedCollection] ?? "all";
 }
 
 export function Collection(props: {

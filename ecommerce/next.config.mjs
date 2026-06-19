@@ -1,5 +1,3 @@
-import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -65,19 +63,4 @@ const nextConfig = {
     serverComponentsExternalPackages: ["isolated-vm"],
   },
 };
-export default async function config(phase) {
-  if (phase !== PHASE_DEVELOPMENT_SERVER) {
-    return nextConfig;
-  }
-
-  const [{ default: BuilderDevTools }, { withHydrationOverlay }] = await Promise.all([
-    import("@builder.io/dev-tools/next"),
-    import("@builder.io/react-hydration-overlay/next"),
-  ]);
-
-  return BuilderDevTools()(
-    withHydrationOverlay({
-      appRootSelector: "main",
-    })(nextConfig)
-  );
-}
+export default nextConfig;

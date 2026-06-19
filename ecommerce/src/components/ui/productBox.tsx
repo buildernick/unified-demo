@@ -7,20 +7,22 @@ interface ProductBoxProps {
 const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
   let product = productData?.data || productData?.value?.data;
 
-  if (!product?.images?.[0]?.image) {
-    console.error("[ProductBox] No image found to display");
+  const image = product?.images?.[0];
+
+  if (!image?.image) {
+    return null;
   }
 
   return (
     <a className="block w-full" href={`/product/${product?.handle}`}>
       <div className="w-full h-[300px] border border-zinc-300 rounded-md overflow-hidden relative">
         <Image
-          src={product?.images?.[0]?.image}
-          alt={product?.images?.[0]?.altText || product?.productName || "Product image"}
+          src={image.image}
+          alt={image.altText || product?.productName || "Product image"}
           fill={true}
           style={{ objectFit: "cover" }}
           loading="lazy"
-          sizes="(max-width: 768px) 200px, 300px"
+          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 400px"
         />
       </div>
       <div className="flex flex-col mt-3 w-full">

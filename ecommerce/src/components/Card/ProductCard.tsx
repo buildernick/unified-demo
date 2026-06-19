@@ -45,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div
-      className={`flex flex-col text-base tracking-wider text-center md:self-start self-center relative w-full ${classes ?? ""}`}
+      className={`flex flex-col text-base tracking-wider text-center md:self-start self-center relative ${classes ?? "w-full"}`}
     >
       {dataSource === "Shopify" && (
         <ShopifyProduct
