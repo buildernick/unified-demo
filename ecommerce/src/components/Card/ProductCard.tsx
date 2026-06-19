@@ -45,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div
-      className={`flex flex-col text-base tracking-wider text-center md:self-start self-center ${classes} relative w-72`}
+      className={`flex flex-col text-base tracking-wider text-center md:self-start self-center relative ${classes ?? "w-full"}`}
     >
       {dataSource === "Shopify" && (
         <ShopifyProduct
@@ -71,9 +71,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           }
         />
       )}
-      {(dataSource === "Builder" || dataSource === "Shopstyle") && (
-        <ProductBox productData={product} dataSource={dataSource} />
-      )}
+      {dataSource === "Builder" && <ProductBox productData={product} />}
     </div>
   );
 };

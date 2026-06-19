@@ -73,7 +73,11 @@ function Hit({ hit }: { hit: HitData }) {
     return null;
   }
 
-  return <ProductBox productData={hit} dataSource="Algolia" />;
+  return (
+    <div className="w-[200px] shrink-0">
+      <ProductBox productData={hit} />
+    </div>
+  );
 }
 
 export default AlgoliaSearchBox;

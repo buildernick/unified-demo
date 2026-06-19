@@ -7,24 +7,29 @@ import QueryProvider from "@/src/components/QueryProvider";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale="en-US"
+  const locale = "en-US";
 
-  const headerContent = await builder
-    .get("header-links", { fields: "data" , options: { locale }})
-    .toPromise();
+  const [headerContent, bannerContent] = await Promise.all([
+    builder
+      .get("header-links", { fields: "data", options: { locale } })
+      .toPromise()
+      .catch(() => null),
+    builder
+      .get("banner", {
+        userAttributes: { loggedIn: true },
+        options: { locale },
+      })
+      .toPromise()
+      .catch(() => null),
+  ]);
 
-  const bannerContent = await builder.get("banner", {
-    userAttributes: {loggedIn: true},
-    options: {
-      locale
-    }
-  }).toPromise();
-  
   return (
     <html lang="en">
       <body>
