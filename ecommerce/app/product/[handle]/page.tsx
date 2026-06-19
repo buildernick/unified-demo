@@ -1,4 +1,5 @@
-"use server";
+export const dynamic = "force-dynamic";
+
 import ProductDetails from "@/src/components/PDP/ProductDetails";
 import { builder } from "@builder.io/sdk";
 import { RenderBuilderContent } from "@/src/components/builder";
