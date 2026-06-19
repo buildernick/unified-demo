@@ -3,6 +3,9 @@ import { RenderBuilderLiveDataPreview } from "@/src/components/builderLiveDataPr
 import { RenderBuilderContent } from "@/src/components/builder";
 import { Button } from "@/src/components/ui/button";
 // import { useEffect, useState } from "react";
+
+export const dynamic = "force-dynamic";
+
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
 interface BlogPageProps {
