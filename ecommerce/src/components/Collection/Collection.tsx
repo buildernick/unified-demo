@@ -3,7 +3,7 @@ import ProductCard from "../Card/ProductCard";
 
 const collectionAliases: Record<string, string> = {
   accessories: "accessories",
-  handbags: "accessories",
+  handbags: "handbags",
   men: "men",
   women: "women",
   "womens-eyewear": "accessories",
@@ -29,18 +29,28 @@ export function Collection(props: {
     retry: false,
     queryFn: async () => {
       try {
-        const params = new URLSearchParams({
-          apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY ?? "",
-          includeRefs: "true",
-          fields: "data",
-          limit: "20",
-        });
-        const response = await fetch(
-          `https://cdn.builder.io/api/v3/content/product-data?${params}`
-        );
-        if (!response.ok) return [];
+        const pageSize = 100;
+        let offset = 0;
+        let builderProducts: any[] = [];
+        let page: any[] = [];
 
-        const builderProducts = (await response.json()).results ?? [];
+        do {
+          const params = new URLSearchParams({
+            apiKey: process.env.NEXT_PUBLIC_BUILDER_API_KEY ?? "",
+            includeRefs: "true",
+            fields: "data",
+            limit: String(pageSize),
+            offset: String(offset),
+          });
+          const response = await fetch(
+            `https://cdn.builder.io/api/v3/content/product-data?${params}`
+          );
+          if (!response.ok) return [];
+
+          page = (await response.json()).results ?? [];
+          builderProducts = builderProducts.concat(page);
+          offset += pageSize;
+        } while (page.length === pageSize);
 
         if (collection === "all") {
           return builderProducts;
