@@ -4,10 +4,19 @@ interface ProductBoxProps {
   productData: any;
 }
 
+function getLocalizedText(value: any) {
+  if (!value || typeof value !== "object") {
+    return value ?? "";
+  }
+
+  return value["en-US"] ?? value.Default ?? Object.values(value).find((item) => typeof item === "string") ?? "";
+}
+
 const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
   let product = productData?.data || productData?.value?.data;
 
   const image = product?.images?.[0];
+  const productName = getLocalizedText(product?.productName);
 
   if (!image?.image) {
     return null;
@@ -18,7 +27,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
       <div className="w-full h-[300px] border border-zinc-300 rounded-md overflow-hidden relative">
         <Image
           src={image.image}
-          alt={image.altText || product?.productName || "Product image"}
+          alt={image.altText || productName || "Product image"}
           fill={true}
           style={{ objectFit: "cover" }}
           loading="lazy"
@@ -28,7 +37,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
       <div className="flex flex-col mt-3 w-full">
         <div className="flex gap-3 justify-between w-full text-black text-left">
           <div className="text-ellipsis overflow-hidden break-words">
-            {product?.productName}
+            {productName}
           </div>
           <p className="font-semibold">${product?.price}</p>
         </div>
