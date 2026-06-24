@@ -11,6 +11,7 @@ import { rgbaToHex, capitalizeWord } from "@/lib/utils";
 import { BuilderContent } from "@builder.io/react";
 import DOMPurify from "isomorphic-dompurify";
 import Link from "next/link";
+import { useCart } from "@/src/context/CartContext";
 
 type ColorOption = {
   label: string;
@@ -204,6 +205,7 @@ function getLocalizedText(value: any) {
 }
 
 const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
+  const { addToCart } = useCart();
   const [selectedColor, setSelectedColor] = useState(
     product?.data?.colors?.[0]?.label || null,
   );
@@ -349,7 +351,16 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
                       <Button
                         className="grow justify-center items-center px-5 py-4 mt-16 w-full text-lg font-semibold text-white bg-black tracking-[3.78px] max-md:mt-10 max-md:max-w-full"
                         onClick={() => {
-                          console.log("Add to cart clicked");
+                          const handle = product?.data?.handle ?? "";
+                          addToCart({
+                            id: `${handle}-${selectedColor ?? ""}-${selectedSize ?? ""}`,
+                            handle,
+                            productName: getLocalizedText(productData?.productName),
+                            price: productData?.price ?? 0,
+                            image: selectedImage?.image ?? "",
+                            selectedColor,
+                            selectedSize,
+                          });
                         }}
                       >
                         ADD TO CART
