@@ -244,11 +244,11 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
                 )}
               </div>
               <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                <div className="flex flex-col max-md:ml-0 md:w-1/2 w-full lg:max-h-80 relative">
+                <div className="flex flex-col max-md:ml-0 md:w-1/2 w-full relative">
                   <ProductImage
                     src={selectedImage?.image}
                     alt={selectedImage?.altText || ""}
-                    className="border border-solid aspect-auto h-full border-zinc-300 max-md:max-w-full object-cover"
+                    className="border border-solid border-zinc-300 w-full object-cover aspect-[3/4]"
                   />
                   <div className="flex flex-col w-[59%] max-md:ml-0 max-md:w-full mt-5">
                     <ImageSelector
