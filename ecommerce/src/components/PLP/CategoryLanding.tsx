@@ -68,18 +68,18 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
             </div>
             <div className="flex flex-col max-sm:w-full">
               <div className="flex flex-col grow md:max-w-full">
-                <div className="flex flex-row flex-wrap gap-3 justify-center items-start md:max-w-full">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                   {filteredProducts.map((product: any, index: any) => {
                     return (index === 3 && plpTiles.length) ? (
                         <div
                           key={`${index}-ad-tile`}
-                          className="flex flex-col text-base tracking-wider text-center box-border relative basis-1/2-gap-3 lg:basis-1/3-gap-3 shrink-1 grow-1" >
+                          className="flex flex-col text-base tracking-wider text-center" >
                           <RenderBuilderContent model="plp-tile" content={plpTiles[0]} />
                         </div>
                     ):(
                       <ProductCard
                         key={index}
-                        classes="box-border relative basis-1/2-gap-3 lg:basis-1/3-gap-3 shrink-1 grow-1"
+                        classes="w-full"
                         product={product}
                         dataSource="Builder"
                       />
