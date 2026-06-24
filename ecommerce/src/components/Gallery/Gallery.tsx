@@ -17,6 +17,11 @@ import SplitHero from "@/src/components/Hero/SplitHero";
 import TextHero from "@/src/components/Hero/TextHero";
 import UpsellPopup from "@/src/components/Popup/UpsellPopup";
 import { Button } from "@/src/components/ui/button";
+import CategoryLanding from "@/src/components/PLP/CategoryLanding";
+import { CategoryFilter } from "@/src/components/PLP/CategoryFilter";
+import { ColorFilter } from "@/src/components/PLP/ColorFilter";
+import { SizeFilter } from "@/src/components/PLP/SizeFilter";
+import { Accordion as UIAccordion, AccordionItem, AccordionContent, AccordionTrigger } from "@/src/components/ui/accordion";
 
 const heroImage =
   "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2F61c4f304ac9448b1ad741b83de17e48a";
@@ -621,6 +626,110 @@ function CustomTextSection() {
   );
 }
 
+// ─── PLP sample data ──────────────────────────────────────────────────────────
+
+const plpProducts = [
+  { data: { handle: "p1", productName: "Studio Denim Jacket", price: 128, subCategory: "Jackets", colors: [{ label: "blue" }], sizes: [{ label: "Small" }, { label: "Medium" }, { label: "Large" }], images: [{ image: denimImage, altText: "Denim jacket" }] } },
+  { data: { handle: "p2", productName: "Classic White Tee", price: 48, subCategory: "Shirts", colors: [{ label: "white" }], sizes: [{ label: "X-Small" }, { label: "Small" }, { label: "Medium" }], images: [{ image: heroImage, altText: "White tee" }] } },
+  { data: { handle: "p3", productName: "Tailored Pea Coat", price: 225, subCategory: "Pea Coats", colors: [{ label: "black" }], sizes: [{ label: "Small" }, { label: "Medium" }, { label: "Large" }, { label: "X-Large" }], images: [{ image: denimImage, altText: "Pea coat" }] } },
+  { data: { handle: "p4", productName: "Relaxed Linen Shirt", price: 75, subCategory: "Shirts", colors: [{ label: "gray" }], sizes: [{ label: "Medium" }, { label: "Large" }], images: [{ image: heroImage, altText: "Linen shirt" }] } },
+  { data: { handle: "p5", productName: "Vintage Leather Vest", price: 160, subCategory: "Vests", colors: [{ label: "black" }], sizes: [{ label: "Small" }, { label: "Medium" }], images: [{ image: denimImage, altText: "Leather vest" }] } },
+  { data: { handle: "p6", productName: "Canvas Field Jacket", price: 195, subCategory: "Jackets", colors: [{ label: "green" }], sizes: [{ label: "Medium" }, { label: "Large" }, { label: "X-Large" }], images: [{ image: heroImage, altText: "Field jacket" }] } },
+];
+
+function PLPGridSection() {
+  return (
+    <div className="px-8 py-8">
+      <Example label="Full PLP layout — filters + product grid" fullWidth>
+        <div className="border rounded-lg overflow-hidden">
+          <CategoryLanding products={plpProducts} plpTiles={[]} />
+        </div>
+      </Example>
+      <Example label="Filtered state — Jackets only" fullWidth>
+        <div className="border rounded-lg overflow-hidden">
+          <CategoryLanding
+            products={plpProducts.filter((p) => p.data.subCategory === "Jackets")}
+            plpTiles={[]}
+          />
+        </div>
+      </Example>
+    </div>
+  );
+}
+
+function PLPFiltersSection() {
+  const [selectedCategories, setSelectedCategories] = React.useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = React.useState<string[]>(["blue"]);
+  const [selectedSizes, setSelectedSizes] = React.useState<string[]>([]);
+  const sizes = ["X-Small", "Small", "Medium", "Large", "X-Large"];
+
+  return (
+    <div className="px-8 py-8">
+      <Example label="CategoryFilter — all categories">
+        <div className="p-6 max-w-xs">
+          <CategoryFilter
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+          />
+        </div>
+      </Example>
+      <Example label="ColorFilter — preset selection (blue active)">
+        <div className="p-6 max-w-xs">
+          <ColorFilter
+            selectedColors={selectedColors}
+            setSelectedColors={setSelectedColors}
+          />
+        </div>
+      </Example>
+      <Example label="SizeFilter — toggle buttons">
+        <div className="p-6 max-w-xs">
+          <SizeFilter
+            selectedSizes={selectedSizes}
+            setSelectedSizes={setSelectedSizes}
+            availableSizes={sizes}
+          />
+        </div>
+      </Example>
+      <Example label="All three filters in accordion — matches PLP sidebar">
+        <div className="p-6 max-w-xs">
+          <UIAccordion type="multiple" className="w-full" defaultValue={["category", "color", "size"]}>
+            <AccordionItem value="category">
+              <AccordionTrigger>Category</AccordionTrigger>
+              <AccordionContent>
+                <CategoryFilter
+                  selectedCategories={[]}
+                  setSelectedCategories={() => {}}
+                  availableCategories={["Jackets", "Shirts", "Vests"]}
+                />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="color">
+              <AccordionTrigger>Color</AccordionTrigger>
+              <AccordionContent>
+                <ColorFilter
+                  selectedColors={[]}
+                  setSelectedColors={() => {}}
+                  availableColors={["blue", "black", "green", "gray"]}
+                />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="size">
+              <AccordionTrigger>Size</AccordionTrigger>
+              <AccordionContent>
+                <SizeFilter
+                  selectedSizes={[]}
+                  setSelectedSizes={() => {}}
+                  availableSizes={sizes}
+                />
+              </AccordionContent>
+            </AccordionItem>
+          </UIAccordion>
+        </div>
+      </Example>
+    </div>
+  );
+}
+
 // ─── Typography & Spacing tokens ──────────────────────────────────────────────
 
 const colorTokens = [
@@ -784,6 +893,13 @@ const navSections = [
     items: [
       { name: "Collection", examples: 1, group: "Commerce", description: "Horizontally scrolling product collection sourced from Builder product data and filtered by collection.", inputs: "collection", component: CollectionSection },
       { name: "AlgoliaSearchBox", examples: 1, group: "Commerce", description: "Algolia-powered product search with category, color, and size refinements.", inputs: "none", component: AlgoliaSection },
+    ],
+  },
+  {
+    title: "PLP",
+    items: [
+      { name: "PLP Grid", examples: 2, group: "PLP", description: "Full product listing page layout with sidebar filters and a responsive product grid. Accepts a list of products and applies category, color, and size filters client-side.", inputs: "products, plpTiles, colorIdToName", component: PLPGridSection },
+      { name: "PLP Filters", examples: 4, group: "PLP", description: "Sidebar filter controls for the product listing page: CategoryFilter (checkboxes), ColorFilter (color swatches with checkboxes), and SizeFilter (toggle buttons). Shown individually and composed in an accordion.", inputs: "selectedCategories, setSelectedCategories, availableCategories, selectedColors, setSelectedColors, availableColors, selectedSizes, setSelectedSizes, availableSizes", component: PLPFiltersSection },
     ],
   },
   {
