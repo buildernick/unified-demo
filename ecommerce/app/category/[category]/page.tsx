@@ -14,7 +14,7 @@ interface CategoryPageProps {
 
 export default async function CategoryPage(props: CategoryPageProps) {
   const plpTileModel = "plp-tile";
-  const plpProductDataModel = "product-data";
+  const plpProductDataModel = "shopaholic-products";
 
   const plpTileContent = await builder
     // Get the page content from Builder with the specified options
