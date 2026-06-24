@@ -14,16 +14,22 @@ import { Accordion, AccordionItem, AccordionContent, AccordionTrigger } from '@/
 type CategoryLandingProps = {
   products: any;
   plpTiles: any;
+  colorIdToName?: Record<string, string>;
 }
 
-const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
+const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles, colorIdToName = {} }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
   const filteredProducts = products.filter((p: any) => {
     if (selectedCategories.length && !selectedCategories.includes(p.data?.subCategory)) return false;
-    if (selectedColors.length && !p.data?.colors?.some((c: any) => selectedColors.includes(c.color?.value?.data?.name))) return false;
+    if (selectedColors.length && !p.data?.colors?.some((c: any) => {
+      const refName = c.color?.id ? colorIdToName[c.color.id] : undefined;
+      const resolvedName = c.color?.value?.data?.name;
+      const name = refName ?? resolvedName;
+      return name && selectedColors.includes(name);
+    })) return false;
     return true;
   });
 

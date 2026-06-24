@@ -35,10 +35,20 @@ export default async function CategoryPage(props: CategoryPageProps) {
       locale: "en-US",
       options: {
         noCache: true,
-        includeRefs: true,
       },
     });
-  // console.log("DATA", productDetailsContent);
+
+  const colorEntries = await builder.getAll("product-color", {
+    options: { noCache: true },
+    fields: "id,data.name",
+  });
+
+  const colorIdToName: Record<string, string> = {};
+  for (const entry of colorEntries) {
+    if (entry.id && entry.data?.name) {
+      colorIdToName[entry.id] = entry.data.name;
+    }
+  }
   return (
     <>
       {/* Render the Builder page */}
@@ -51,6 +61,7 @@ export default async function CategoryPage(props: CategoryPageProps) {
       <CategoryLanding
         products={productDetailsContent}
         plpTiles={plpTileContent}
+        colorIdToName={colorIdToName}
       />
     </>
   );
