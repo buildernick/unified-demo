@@ -21,9 +21,11 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
-  const filteredProducts = selectedCategories.length
-    ? products.filter((p: any) => selectedCategories.includes(p.data?.subCategory))
-    : products;
+  const filteredProducts = products.filter((p: any) => {
+    if (selectedCategories.length && !selectedCategories.includes(p.data?.subCategory)) return false;
+    if (selectedColors.length && !p.data?.colors?.some((c: any) => selectedColors.includes(c.label))) return false;
+    return true;
+  });
 
   return (
     <div className="box-border flex relative flex-col shrink-0">
