@@ -50,12 +50,24 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles, colorId
     )
   ) as string[];
 
+  const SIZE_ORDER = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large'];
+  const availableSizes = Array.from(
+    new Set(
+      products.flatMap((p: any) =>
+        (p.data?.sizes ?? []).map((s: any) => s.label).filter(Boolean)
+      )
+    )
+  ).sort((a, b) =>
+    SIZE_ORDER.indexOf(a as string) - SIZE_ORDER.indexOf(b as string)
+  ) as string[];
+
   const filteredProducts = products.filter((p: any) => {
     if (selectedCategories.length && !selectedCategories.includes(p.data?.subCategory)) return false;
     if (selectedColors.length && !p.data?.colors?.some((c: any) => {
       const name = resolveColorName(c, colorIdToName);
       return name ? selectedColors.includes(name) : false;
     })) return false;
+    if (selectedSizes.length && !p.data?.sizes?.some((s: any) => selectedSizes.includes(s.label))) return false;
     return true;
   });
 
@@ -96,6 +108,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles, colorId
                       <SizeFilter
                         selectedSizes={selectedSizes}
                         setSelectedSizes={setSelectedSizes}
+                        availableSizes={availableSizes}
                       />
                     </AccordionContent>
                   </AccordionItem>
