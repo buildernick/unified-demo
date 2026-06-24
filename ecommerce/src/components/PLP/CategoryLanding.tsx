@@ -66,7 +66,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
                 </Accordion>
               </div>
             </div>
-            <div className="flex flex-col max-sm:w-full">
+            <div className="flex flex-col flex-1 min-w-0 max-sm:w-full">
               <div className="flex flex-col grow md:max-w-full">
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
                   {filteredProducts.map((product: any, index: any) => {
