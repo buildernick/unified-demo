@@ -124,11 +124,8 @@ export default function CartPage() {
               <span>${subtotal.toFixed(2)}</span>
             </div>
 
-            <Button
-              className="w-full bg-black text-white py-4 text-sm font-semibold tracking-widest mt-2"
-              onClick={() => {}}
-            >
-              CONTINUE TO CHECKOUT
+            <Button asChild className="w-full bg-black text-white py-4 text-sm font-semibold tracking-widest mt-2">
+              <Link href="/checkout">CONTINUE TO CHECKOUT</Link>
             </Button>
 
             <Button asChild variant="link" className="text-sm text-zinc-500 underline">
