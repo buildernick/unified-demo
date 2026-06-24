@@ -30,7 +30,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
       <div className="flex flex-col mt-4 w-full md:px-5 md:mt-10 md:max-w-full">
         <div className="md:max-w-full">
           <div className="flex gap-5 md:gap-8 max-sm:flex-col">
-            <div className="flex flex-col  w-[31%] sm:min-w-56 lg:max-w-80 max-sm:w-full shrink-0">
+            <div className="flex flex-col w-[16%] sm:min-w-28 lg:max-w-40 max-sm:w-full shrink-0">
               <div className="flex flex-col text-base tracking-wider text-black">
                 <Accordion type="multiple" className="w-full" defaultValue={["category", "color", "size"]}>
                   <AccordionItem value="category">
