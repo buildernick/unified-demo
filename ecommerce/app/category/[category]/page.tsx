@@ -26,7 +26,6 @@ export default async function CategoryPage(props: CategoryPageProps) {
     });
 
   const productDetailsContent = await builder
-    // Get the page content from Builder with the specified options
     .getAll(plpProductDataModel, {
       query: {
         data: {
@@ -34,6 +33,9 @@ export default async function CategoryPage(props: CategoryPageProps) {
         },
       },
       locale: "en-US",
+      options: {
+        noCache: true,
+      },
     });
   // console.log("DATA", productDetailsContent);
   return (
