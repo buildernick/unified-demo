@@ -17,29 +17,44 @@ type CategoryLandingProps = {
   colorIdToName?: Record<string, string>;
 }
 
+const OLD_LABEL_MAP: Record<string, string> = {
+  'soft blue': 'blue', 'navy': 'blue', 'rose': 'pink',
+  'moss green': 'green', 'soft grey': 'gray', 'powder': 'white',
+  'red': 'red', 'black': 'black', 'grey': 'gray', 'white': 'white',
+  'green': 'green', 'blue': 'blue', 'pink': 'pink', 'gray': 'gray',
+};
+
+function resolveColorName(c: any, colorIdToName: Record<string, string>): string | undefined {
+  if (c.color && typeof c.color === 'object' && c.color.id) {
+    return colorIdToName[c.color.id] ?? c.color?.value?.data?.name;
+  }
+  const label = c.label?.toLowerCase();
+  return label ? (OLD_LABEL_MAP[label] ?? label) : undefined;
+}
+
 const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles, colorIdToName = {} }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
+  // Compute available filter options from the full product list
+  const availableCategories = Array.from(
+    new Set(products.map((p: any) => p.data?.subCategory).filter(Boolean))
+  ) as string[];
+
+  const availableColors = Array.from(
+    new Set(
+      products.flatMap((p: any) =>
+        (p.data?.colors ?? []).map((c: any) => resolveColorName(c, colorIdToName)).filter(Boolean)
+      )
+    )
+  ) as string[];
+
   const filteredProducts = products.filter((p: any) => {
     if (selectedCategories.length && !selectedCategories.includes(p.data?.subCategory)) return false;
     if (selectedColors.length && !p.data?.colors?.some((c: any) => {
-      // New reference format: c.color is an object with an id
-      if (c.color && typeof c.color === 'object' && c.color.id) {
-        const name = colorIdToName[c.color.id] ?? c.color?.value?.data?.name;
-        if (name) return selectedColors.includes(name);
-      }
-      // Old label format: c.label is a string like "Rose", "Navy", etc.
-      const oldLabelMap: Record<string, string> = {
-        'soft blue': 'blue', 'navy': 'blue', 'rose': 'pink',
-        'moss green': 'green', 'soft grey': 'gray', 'powder': 'white',
-        'red': 'red', 'black': 'black', 'grey': 'gray', 'white': 'white',
-        'green': 'green', 'blue': 'blue', 'pink': 'pink', 'gray': 'gray',
-      };
-      const label = c.label?.toLowerCase();
-      const mapped = label ? (oldLabelMap[label] ?? label) : undefined;
-      return mapped ? selectedColors.includes(mapped) : false;
+      const name = resolveColorName(c, colorIdToName);
+      return name ? selectedColors.includes(name) : false;
     })) return false;
     return true;
   });
@@ -59,6 +74,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles, colorId
                       <CategoryFilter
                         selectedCategories={selectedCategories}
                         setSelectedCategories={setSelectedCategories}
+                        availableCategories={availableCategories}
                       />
                     </AccordionContent>
                   </AccordionItem>
@@ -69,6 +85,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles, colorId
                       <ColorFilter
                         selectedColors={selectedColors}
                         setSelectedColors={setSelectedColors}
+                        availableColors={availableColors}
                       />
                     </AccordionContent>
                   </AccordionItem>

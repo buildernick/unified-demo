@@ -4,6 +4,7 @@ import { Checkbox } from '@/src/components/ui/checkbox';
 interface ColorFilterProps {
   selectedColors: string[];
   setSelectedColors: React.Dispatch<React.SetStateAction<string[]>>;
+  availableColors?: string[];
 }
 
 const colors = [
@@ -19,7 +20,11 @@ const colors = [
 export const ColorFilter: React.FC<ColorFilterProps> = ({
   selectedColors,
   setSelectedColors,
+  availableColors,
 }) => {
+  const visibleColors = availableColors
+    ? colors.filter(c => availableColors.includes(c.name))
+    : colors;
   const handleColorChange = (colorName: string) => {
     setSelectedColors((prev) =>
       prev.includes(colorName)
@@ -30,7 +35,7 @@ export const ColorFilter: React.FC<ColorFilterProps> = ({
 
   return (
     <>
-      {colors.map((color) => (
+      {visibleColors.map((color) => (
         <div key={color.name} className="flex gap-3.5 mt-4 items-center">
           <Checkbox
             id={color.name}
