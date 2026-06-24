@@ -33,15 +33,13 @@ export default async function CategoryPage(props: CategoryPageProps) {
         },
       },
       locale: "en-US",
-      options: {
-        noCache: true,
-      },
-    });
+      noCache: true,
+    } as any);
 
   const colorEntries = await builder.getAll("product-color", {
-    options: { noCache: true },
+    noCache: true,
     fields: "id,data.name",
-  });
+  } as any);
 
   const colorIdToName: Record<string, string> = {};
   for (const entry of colorEntries) {
@@ -49,6 +47,10 @@ export default async function CategoryPage(props: CategoryPageProps) {
       colorIdToName[entry.id] = entry.data.name;
     }
   }
+  console.log('[DEBUG] products:', productDetailsContent.map((p: any) => ({
+    handle: p.data?.handle,
+    colors: p.data?.colors,
+  })));
   return (
     <>
       {/* Render the Builder page */}

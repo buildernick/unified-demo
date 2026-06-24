@@ -25,10 +25,21 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles, colorId
   const filteredProducts = products.filter((p: any) => {
     if (selectedCategories.length && !selectedCategories.includes(p.data?.subCategory)) return false;
     if (selectedColors.length && !p.data?.colors?.some((c: any) => {
-      const refName = c.color?.id ? colorIdToName[c.color.id] : undefined;
-      const resolvedName = c.color?.value?.data?.name;
-      const name = refName ?? resolvedName;
-      return name && selectedColors.includes(name);
+      // New reference format: c.color is an object with an id
+      if (c.color && typeof c.color === 'object' && c.color.id) {
+        const name = colorIdToName[c.color.id] ?? c.color?.value?.data?.name;
+        if (name) return selectedColors.includes(name);
+      }
+      // Old label format: c.label is a string like "Rose", "Navy", etc.
+      const oldLabelMap: Record<string, string> = {
+        'soft blue': 'blue', 'navy': 'blue', 'rose': 'pink',
+        'moss green': 'green', 'soft grey': 'gray', 'powder': 'white',
+        'red': 'red', 'black': 'black', 'grey': 'gray', 'white': 'white',
+        'green': 'green', 'blue': 'blue', 'pink': 'pink', 'gray': 'gray',
+      };
+      const label = c.label?.toLowerCase();
+      const mapped = label ? (oldLabelMap[label] ?? label) : undefined;
+      return mapped ? selectedColors.includes(mapped) : false;
     })) return false;
     return true;
   });
