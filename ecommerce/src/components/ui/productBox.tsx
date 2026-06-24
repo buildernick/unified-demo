@@ -59,7 +59,8 @@ const COLOR_MAP: Record<string, string> = {
   nude: "#E8C9A0",
 };
 
-function labelToColor(label: string): string {
+function labelToColor(label: string | undefined): string {
+  if (!label) return "#D1D5DB";
   const key = label.toLowerCase().trim();
   return COLOR_MAP[key] ?? "#D1D5DB";
 }
@@ -78,7 +79,9 @@ const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
 
   const image = product?.images?.[0];
   const productName = getLocalizedText(product?.productName);
-  const colors: { label: string }[] = product?.colors ?? [];
+  const colors: { label?: string }[] = (product?.colors ?? []).filter(
+    (c: any) => c && typeof c.label === "string"
+  );
 
   if (!image?.image) {
     return null;
