@@ -79,16 +79,21 @@ const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
 
   const image = product?.images?.[0];
   const productName = getLocalizedText(product?.productName);
-  const colors: { label?: string }[] = (product?.colors ?? []).filter(
-    (c: any) => c && typeof c.label === "string"
-  );
+  const colorLabels: string[] = (product?.colors ?? [])
+    .map((c: any) => {
+      if (!c) return null;
+      if (typeof c.label === "string" && c.label) return c.label;
+      if (c.color?.value?.data?.name) return c.color.value.data.name as string;
+      return null;
+    })
+    .filter(Boolean) as string[];
 
   if (!image?.image) {
     return null;
   }
 
-  const visibleColors = colors.slice(0, MAX_SWATCHES);
-  const overflow = colors.length - MAX_SWATCHES;
+  const visibleColors = colorLabels.slice(0, MAX_SWATCHES);
+  const overflow = colorLabels.length - MAX_SWATCHES;
 
   return (
     <a className="block w-full" href={`/product/${product?.handle}`}>
@@ -109,15 +114,15 @@ const ProductBox: React.FC<ProductBoxProps> = ({ productData }) => {
           </div>
           <p className="font-semibold">${product?.price}</p>
         </div>
-        {colors.length > 0 && (
+        {colorLabels.length > 0 && (
           <div className="flex items-center gap-1.5 mt-2">
-            {visibleColors.map((color, i) => {
-              const bg = labelToColor(color.label);
+            {visibleColors.map((label, i) => {
+              const bg = labelToColor(label);
               const light = isLight(bg);
               return (
                 <span
                   key={i}
-                  title={color.label}
+                  title={label}
                   className="inline-block w-5 h-5 rounded-full border"
                   style={{
                     backgroundColor: bg,
