@@ -12,53 +12,65 @@ interface CategoryPageProps {
   };
 }
 
-export default async function CategoryPage(props: CategoryPageProps) {
-  const plpTileModel = "plp-tile";
-  const plpProductDataModel = "shopaholic-products";
+const API_KEY = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
 
-  const plpTileContent = await builder
-    // Get the page content from Builder with the specified options
-    .getAll(plpTileModel, {
-      userAttributes: {
-        category: props?.params?.category.toLowerCase(),
-      },
-      locale: "en-US",
-    });
+async function fetchProducts(category: string) {
+  const params = new URLSearchParams({
+    apiKey: API_KEY,
+    limit: "50",
+    noCache: "true",
+    cachebust: String(Date.now()),
+    "query.data.category": category,
+    fields: "data,id,name",
+  });
+  const res = await fetch(
+    `https://cdn.builder.io/api/v3/content/shopaholic-products?${params}`,
+    { cache: "no-store" }
+  );
+  if (!res.ok) return [];
+  const json = await res.json();
+  return json.results ?? [];
+}
 
-  const productDetailsContent = await builder
-    .getAll(plpProductDataModel, {
-      query: {
-        data: {
-          category: props?.params?.category.toLowerCase(),
-        },
-      },
-      locale: "en-US",
-      noCache: true,
-    } as any);
-
-  const colorEntries = await builder.getAll("product-color", {
-    noCache: true,
+async function fetchColorMap(): Promise<Record<string, string>> {
+  const params = new URLSearchParams({
+    apiKey: API_KEY,
+    limit: "20",
+    noCache: "true",
     fields: "id,data.name",
-  } as any);
-
-  const colorIdToName: Record<string, string> = {};
-  for (const entry of colorEntries) {
-    if (entry.id && entry.data?.name) {
-      colorIdToName[entry.id] = entry.data.name;
-    }
+  });
+  const res = await fetch(
+    `https://cdn.builder.io/api/v3/content/product-color?${params}`,
+    { cache: "no-store" }
+  );
+  if (!res.ok) return {};
+  const json = await res.json();
+  const map: Record<string, string> = {};
+  for (const entry of json.results ?? []) {
+    if (entry.id && entry.data?.name) map[entry.id] = entry.data.name;
   }
-  console.log('[DEBUG] products:', productDetailsContent.map((p: any) => ({
-    handle: p.data?.handle,
-    colors: p.data?.colors,
-  })));
+  return map;
+}
+
+export default async function CategoryPage(props: CategoryPageProps) {
+  const category = props?.params?.category.toLowerCase();
+
+  const [plpTileContent, productDetailsContent, colorIdToName] = await Promise.all([
+    builder.getAll("plp-tile", {
+      userAttributes: { category },
+      locale: "en-US",
+    }),
+    fetchProducts(category),
+    fetchColorMap(),
+  ]);
+
   return (
     <>
-      {/* Render the Builder page */}
       <div className="flex gap-3 self-center mt-5 mr-auto text-base text-neutral-400">
-        <div className="grow">{capitalizeWord(props?.params?.category)}</div>
+        <div className="grow">{capitalizeWord(category)}</div>
       </div>
       <div className="self-center mt-5 text-4xl text-black tracking-[7.14px] max-md:max-w-full">
-        {props?.params?.category.toUpperCase()}
+        {category.toUpperCase()}
       </div>
       <CategoryLanding
         products={productDetailsContent}
