@@ -21,6 +21,10 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
+  const filteredProducts = selectedCategories.length
+    ? products.filter((p: any) => selectedCategories.includes(p.data?.subCategory))
+    : products;
+
   return (
     <div className="box-border flex relative flex-col shrink-0">
       <div className="flex flex-col mt-4 w-full md:px-5 md:mt-10 md:max-w-full">
@@ -65,7 +69,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
             <div className="flex flex-col max-sm:w-full">
               <div className="flex flex-col grow md:max-w-full">
                 <div className="flex flex-row flex-wrap gap-3 justify-center items-start md:max-w-full">
-                  {products.map((product: any, index: any) => {
+                  {filteredProducts.map((product: any, index: any) => {
                     return (index === 3 && plpTiles.length) ? (
                         <div
                           key={`${index}-ad-tile`}

@@ -13,7 +13,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
   selectedCategories,
   setSelectedCategories,
 }) => {
-  const categories = ['Jackets', 'Pea Coats', 'Leather', 'Vests'];
+  const categories = ['Jackets', 'Shirts', 'Shoes', 'Pea Coats', 'Leather', 'Vests'];
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategories((prev) =>
