@@ -7,12 +7,13 @@ interface ColorFilterProps {
 }
 
 const colors = [
-  { name: 'Soft Blue', bgColor: 'bg-[#5b6b7b]' },
-  { name: 'Rose', bgColor: 'bg-[#7b5b5d]' },
-  { name: 'Moss Green', bgColor: 'bg-[#637b5b]' },
-  { name: 'Soft Grey', bgColor: 'bg-[#9b9b9b]' },
-  { name: 'Powder', bgColor: 'bg-slate-300' },
-  { name: 'Navy', bgColor: 'bg-blue-800' },
+  { name: 'red',   hex: '#cc2222' },
+  { name: 'blue',  hex: '#1e40af' },
+  { name: 'white', hex: '#e5e7eb', border: true },
+  { name: 'black', hex: '#111111' },
+  { name: 'gray',  hex: '#9b9b9b' },
+  { name: 'pink',  hex: '#e879a0' },
+  { name: 'green', hex: '#637b5b' },
 ];
 
 export const ColorFilter: React.FC<ColorFilterProps> = ({
@@ -32,15 +33,15 @@ export const ColorFilter: React.FC<ColorFilterProps> = ({
       {colors.map((color) => (
         <div key={color.name} className="flex gap-3.5 mt-4 items-center">
           <Checkbox
-            id={color.name.toLowerCase().replace(' ', '-')}
+            id={color.name}
             checked={selectedColors.includes(color.name)}
             onCheckedChange={() => handleColorChange(color.name)}
           />
-          <div className={`shrink-0 rounded-full ${color.bgColor} h-3.5 w-3.5`} />
-          <label
-            htmlFor={color.name.toLowerCase().replace(' ', '-')}
-            className="cursor-pointer"
-          >
+          <div
+            className={`shrink-0 rounded-full h-3.5 w-3.5 ${color.border ? 'border border-zinc-300' : ''}`}
+            style={{ backgroundColor: color.hex }}
+          />
+          <label htmlFor={color.name} className="cursor-pointer capitalize">
             {color.name}
           </label>
         </div>

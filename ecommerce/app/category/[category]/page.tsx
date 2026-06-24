@@ -35,6 +35,7 @@ export default async function CategoryPage(props: CategoryPageProps) {
       locale: "en-US",
       options: {
         noCache: true,
+        includeRefs: true,
       },
     });
   // console.log("DATA", productDetailsContent);

@@ -23,7 +23,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
 
   const filteredProducts = products.filter((p: any) => {
     if (selectedCategories.length && !selectedCategories.includes(p.data?.subCategory)) return false;
-    if (selectedColors.length && !p.data?.colors?.some((c: any) => selectedColors.includes(c.label))) return false;
+    if (selectedColors.length && !p.data?.colors?.some((c: any) => selectedColors.includes(c.color?.value?.data?.name))) return false;
     return true;
   });
 
