@@ -14,19 +14,69 @@ import { Accordion, AccordionItem, AccordionContent, AccordionTrigger } from '@/
 type CategoryLandingProps = {
   products: any;
   plpTiles: any;
+  colorIdToName?: Record<string, string>;
 }
 
-const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
+const OLD_LABEL_MAP: Record<string, string> = {
+  'soft blue': 'blue', 'navy': 'blue', 'rose': 'pink',
+  'moss green': 'green', 'soft grey': 'gray', 'powder': 'white',
+  'red': 'red', 'black': 'black', 'grey': 'gray', 'white': 'white',
+  'green': 'green', 'blue': 'blue', 'pink': 'pink', 'gray': 'gray',
+};
+
+function resolveColorName(c: any, colorIdToName: Record<string, string>): string | undefined {
+  if (c.color && typeof c.color === 'object' && c.color.id) {
+    return colorIdToName[c.color.id] ?? c.color?.value?.data?.name;
+  }
+  const label = c.label?.toLowerCase();
+  return label ? (OLD_LABEL_MAP[label] ?? label) : undefined;
+}
+
+const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles, colorIdToName = {} }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+
+  // Compute available filter options from the full product list
+  const availableCategories = Array.from(
+    new Set(products.map((p: any) => p.data?.subCategory).filter(Boolean))
+  ) as string[];
+
+  const availableColors = Array.from(
+    new Set(
+      products.flatMap((p: any) =>
+        (p.data?.colors ?? []).map((c: any) => resolveColorName(c, colorIdToName)).filter(Boolean)
+      )
+    )
+  ) as string[];
+
+  const SIZE_ORDER = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large'];
+  const availableSizes = Array.from(
+    new Set(
+      products.flatMap((p: any) =>
+        (p.data?.sizes ?? []).map((s: any) => s.label).filter(Boolean)
+      )
+    )
+  ).sort((a, b) =>
+    SIZE_ORDER.indexOf(a as string) - SIZE_ORDER.indexOf(b as string)
+  ) as string[];
+
+  const filteredProducts = products.filter((p: any) => {
+    if (selectedCategories.length && !selectedCategories.includes(p.data?.subCategory)) return false;
+    if (selectedColors.length && !p.data?.colors?.some((c: any) => {
+      const name = resolveColorName(c, colorIdToName);
+      return name ? selectedColors.includes(name) : false;
+    })) return false;
+    if (selectedSizes.length && !p.data?.sizes?.some((s: any) => selectedSizes.includes(s.label))) return false;
+    return true;
+  });
 
   return (
     <div className="box-border flex relative flex-col shrink-0">
       <div className="flex flex-col mt-4 w-full md:px-5 md:mt-10 md:max-w-full">
         <div className="md:max-w-full">
           <div className="flex gap-5 md:gap-8 max-sm:flex-col">
-            <div className="flex flex-col  w-[31%] sm:min-w-56 lg:max-w-80 max-sm:w-full shrink-0">
+            <div className="flex flex-col w-[16%] sm:min-w-28 lg:max-w-40 max-sm:w-full shrink-0">
               <div className="flex flex-col text-base tracking-wider text-black">
                 <Accordion type="multiple" className="w-full" defaultValue={["category", "color", "size"]}>
                   <AccordionItem value="category">
@@ -36,6 +86,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
                       <CategoryFilter
                         selectedCategories={selectedCategories}
                         setSelectedCategories={setSelectedCategories}
+                        availableCategories={availableCategories}
                       />
                     </AccordionContent>
                   </AccordionItem>
@@ -46,6 +97,7 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
                       <ColorFilter
                         selectedColors={selectedColors}
                         setSelectedColors={setSelectedColors}
+                        availableColors={availableColors}
                       />
                     </AccordionContent>
                   </AccordionItem>
@@ -56,26 +108,27 @@ const CategoryLanding: FC<CategoryLandingProps> = ({ products, plpTiles }) => {
                       <SizeFilter
                         selectedSizes={selectedSizes}
                         setSelectedSizes={setSelectedSizes}
+                        availableSizes={availableSizes}
                       />
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
               </div>
             </div>
-            <div className="flex flex-col max-sm:w-full">
+            <div className="flex flex-col flex-1 min-w-0 max-sm:w-full">
               <div className="flex flex-col grow md:max-w-full">
-                <div className="flex flex-row flex-wrap gap-3 justify-center items-start md:max-w-full">
-                  {products.map((product: any, index: any) => {
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+                  {filteredProducts.map((product: any, index: any) => {
                     return (index === 3 && plpTiles.length) ? (
                         <div
                           key={`${index}-ad-tile`}
-                          className="flex flex-col text-base tracking-wider text-center box-border relative basis-1/2-gap-3 lg:basis-1/3-gap-3 shrink-1 grow-1" >
+                          className="flex flex-col text-base tracking-wider text-center" >
                           <RenderBuilderContent model="plp-tile" content={plpTiles[0]} />
                         </div>
                     ):(
                       <ProductCard
                         key={index}
-                        classes="box-border relative basis-1/2-gap-3 lg:basis-1/3-gap-3 shrink-1 grow-1"
+                        classes="w-full"
                         product={product}
                         dataSource="Builder"
                       />

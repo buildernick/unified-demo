@@ -7,13 +7,18 @@ import { Checkbox } from '@/src/components/ui/checkbox';
 interface CategoryFilterProps {
   selectedCategories: string[];
   setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  availableCategories?: string[];
 }
 
 export const CategoryFilter: React.FC<CategoryFilterProps> = ({
   selectedCategories,
   setSelectedCategories,
+  availableCategories,
 }) => {
-  const categories = ['Jackets', 'Pea Coats', 'Leather', 'Vests'];
+  const allCategories = ['Jackets', 'Shirts', 'Shoes', 'Pea Coats', 'Leather', 'Vests'];
+  const categories = availableCategories
+    ? allCategories.filter(c => availableCategories.includes(c))
+    : allCategories;
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategories((prev) =>
