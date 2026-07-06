@@ -3,6 +3,7 @@
  */
 "use client"
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { CartSlider } from "./CartSlider";
 import { AuthSlider } from "./AuthSlider";
 
@@ -18,7 +19,9 @@ const NavItem: React.FC<NavItemProps> = ({ text, isHighlighted }) => (
 const Footer: React.FC = () => {
   const [ isMounted, setIsMounted ] = useState(false);
   useEffect(() => setIsMounted(true));
-  
+  const pathname = usePathname();
+  if (pathname?.startsWith("/dd")) return null;
+
   const navItems = [
     "WOMEN",
     "MEN",

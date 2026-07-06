@@ -1,0 +1,345 @@
+/*
+  DoorDash Commerce Platform theme tokens.
+  Source: https://merchants.doordash.com/en-us/products/commerce-platform
+
+  Scoped under `.doordash-theme` so it never touches the existing store
+  theme in app/globals.css. Wrap any DoorDash-styled page in a root
+  element with className="doordash-theme" to use these tokens/classes.
+
+  Colors, font stacks, and --dd-max-width were read directly from the
+  page's CSS custom properties. Type scale, spacing scale, radii, and
+  shadows were not exposed in the page's markup, so they were modeled
+  on DoorDash's known visual language (bold sans headlines, pill-shaped
+  buttons, generous whitespace) and can be tuned later.
+*/
+
+.doordash-theme {
+  /* ---------- Color: brand ---------- */
+  --dd-red: #ff3008;
+  --dd-red-hover: #e02b07;
+  --dd-red-active: #c42506;
+  --dd-navy: #233069;
+  --dd-blue-mid: #4969f5;
+  --dd-blue-mid-hover: #2a4de4;
+  --dd-blue-light: #e4ebf7;
+  --dd-teal-dark: #024c52;
+  --dd-teal-mid: #4ba0a7;
+  --dd-burgundy: #810b00;
+  --dd-yellow-dark: #a16c00;
+  --dd-pink: #e97c69;
+  --dd-stone: #e7e4d9;
+  --dd-red-tint: #ffe5df;
+  --dd-red-deep: #570000;
+  --dd-red-button: #eb1700;      /* solid CTA button red, distinct from the #ff3008 accent/text red */
+  --dd-red-button-hover: #c81400;
+  --dd-red-button-active: #a81100;
+  --dd-pink-bg: #ffe8fe;         /* light lavender-pink pill background used for "Learn more" links */
+
+  /* ---------- Color: neutrals / text ---------- */
+  --dd-white: #ffffff;
+  --dd-grey-light: #f6f6f6;
+  --dd-grey-dark: #414141;
+  --dd-text-primary: #191919;
+  --dd-text-medium: #434343;
+  --dd-text-muted: #606060;
+  --dd-icon-muted: #606060;
+  --dd-input-border: #c9ced1;
+  --dd-input-text: #35383f;
+  --dd-card-border: #f8f8f8;
+  --dd-border: var(--dd-stone);
+  --dd-background: var(--dd-white);
+  --dd-background-alt: var(--dd-grey-light);
+
+  /* ---------- Color: semantic ---------- */
+  --dd-color-primary: var(--dd-red-button);
+  --dd-color-primary-hover: var(--dd-red-button-hover);
+  --dd-color-primary-active: var(--dd-red-button-active);
+  --dd-color-secondary: var(--dd-navy);
+  --dd-color-link: var(--dd-blue-mid);
+  --dd-color-link-hover: var(--dd-blue-mid-hover);
+  --dd-color-success: var(--dd-teal-mid);
+  --dd-color-error: var(--dd-burgundy);
+  --dd-color-warning: var(--dd-yellow-dark);
+
+  /* ---------- Typography: font families ---------- */
+  --dd-font-primary: "TT-Norms", "DD-TTNorms", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  --dd-font-secondary: "TT-Norms", "DD-TTNorms", Georgia, serif;
+  --dd-font-condensed: "DD-TTNorms Condensed", "TT-Norms", "DD-TTNorms",
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+
+  /* ---------- Typography: scale (size / line-height) ---------- */
+  --dd-text-h1-size: 3rem;      /* 48px */
+  --dd-text-h1-lh: 1;           /* 48px, matches canonical hero spec */
+  --dd-text-h1-weight: 700;
+  --dd-text-h1-letter-spacing: -2px;
+
+  --dd-text-h2-size: 2.25rem;   /* 36px */
+  --dd-text-h2-lh: 1.15;
+  --dd-text-h2-weight: 700;
+
+  --dd-text-h3-size: 1.75rem;   /* 28px */
+  --dd-text-h3-lh: 1.2;
+  --dd-text-h3-weight: 700;
+
+  --dd-text-h4-size: 1.375rem;  /* 22px */
+  --dd-text-h4-lh: 1.3;
+  --dd-text-h4-weight: 700;
+
+  --dd-text-h5-size: 1.125rem;  /* 18px */
+  --dd-text-h5-lh: 1.4;
+  --dd-text-h5-weight: 700;
+
+  --dd-text-body-size: 1rem;    /* 16px */
+  --dd-text-body-lh: 1.5;
+  --dd-text-body-weight: 400;
+
+  --dd-text-small-size: 0.875rem; /* 14px */
+  --dd-text-small-lh: 1.4;
+
+  --dd-text-caption-size: 0.75rem; /* 12px */
+  --dd-text-caption-lh: 1.3;
+
+  --dd-text-button-size: 1rem;
+  --dd-text-button-weight: 700;
+
+  /* ---------- Spacing scale (4px base) ---------- */
+  --dd-space-1: 0.25rem;  /* 4px */
+  --dd-space-2: 0.5rem;   /* 8px */
+  --dd-space-3: 0.75rem;  /* 12px */
+  --dd-space-4: 1rem;     /* 16px */
+  --dd-space-5: 1.5rem;   /* 24px */
+  --dd-space-6: 2rem;     /* 32px */
+  --dd-space-7: 3rem;     /* 48px */
+  --dd-space-8: 4rem;     /* 64px */
+  --dd-space-9: 6rem;     /* 96px */
+  --dd-space-10: 8rem;    /* 128px */
+
+  /* ---------- Radius ---------- */
+  --dd-radius-sm: 8px;
+  --dd-radius-md: 12px;
+  --dd-radius-lg: 16px;
+  --dd-radius-pill: 999px;
+
+  /* ---------- Shadow / elevation ---------- */
+  --dd-shadow-sm: 0 1px 2px rgba(25, 25, 25, 0.08);
+  --dd-shadow-md: 0 4px 12px rgba(25, 25, 25, 0.1);
+  --dd-shadow-lg: 0 12px 32px rgba(25, 25, 25, 0.14);
+  --dd-shadow-card: 0 4px 25.4px rgba(0, 0, 0, 0.1);
+
+  /* ---------- Layout ---------- */
+  --dd-max-width: 1224px;
+  --dd-container-padding: var(--dd-space-5);
+  --dd-breakpoint-sm: 640px;
+  --dd-breakpoint-md: 768px;
+  --dd-breakpoint-lg: 1024px;
+  --dd-breakpoint-xl: 1280px;
+
+  font-family: var(--dd-font-primary);
+  color: var(--dd-text-primary);
+  background-color: var(--dd-background);
+}
+
+/* ---------- Typography utility classes ---------- */
+.doordash-theme h1,
+.doordash-theme .dd-h1 {
+  font-size: var(--dd-text-h1-size);
+  line-height: var(--dd-text-h1-lh);
+  font-weight: var(--dd-text-h1-weight);
+  letter-spacing: var(--dd-text-h1-letter-spacing);
+  font-family: var(--dd-font-primary);
+  margin: 0;
+}
+
+.doordash-theme h2,
+.doordash-theme .dd-h2 {
+  font-size: var(--dd-text-h2-size);
+  line-height: var(--dd-text-h2-lh);
+  font-weight: var(--dd-text-h2-weight);
+  font-family: var(--dd-font-primary);
+  margin: 0;
+}
+
+.doordash-theme h3,
+.doordash-theme .dd-h3 {
+  font-size: var(--dd-text-h3-size);
+  line-height: var(--dd-text-h3-lh);
+  font-weight: var(--dd-text-h3-weight);
+  font-family: var(--dd-font-primary);
+  margin: 0;
+}
+
+.doordash-theme h4,
+.doordash-theme .dd-h4 {
+  font-size: var(--dd-text-h4-size);
+  line-height: var(--dd-text-h4-lh);
+  font-weight: var(--dd-text-h4-weight);
+  font-family: var(--dd-font-primary);
+  margin: 0;
+}
+
+.doordash-theme h5,
+.doordash-theme .dd-h5 {
+  font-size: var(--dd-text-h5-size);
+  line-height: var(--dd-text-h5-lh);
+  font-weight: var(--dd-text-h5-weight);
+  font-family: var(--dd-font-primary);
+  margin: 0;
+}
+
+.doordash-theme p,
+.doordash-theme .dd-body {
+  font-size: var(--dd-text-body-size);
+  line-height: var(--dd-text-body-lh);
+  font-weight: var(--dd-text-body-weight);
+  margin: 0;
+}
+
+.doordash-theme .dd-small {
+  font-size: var(--dd-text-small-size);
+  line-height: var(--dd-text-small-lh);
+}
+
+.doordash-theme .dd-caption {
+  font-size: var(--dd-text-caption-size);
+  line-height: var(--dd-text-caption-lh);
+  color: var(--dd-text-muted);
+}
+
+.doordash-theme .dd-form-heading {
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--dd-red-deep);
+  text-align: left;
+  margin: 0;
+}
+
+.doordash-theme .dd-accordion-title {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--dd-red-deep);
+}
+
+.doordash-theme .dd-pill-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 var(--dd-space-4);
+  border-radius: var(--dd-radius-pill);
+  background-color: var(--dd-pink-bg);
+  color: var(--dd-red-deep);
+  font-size: var(--dd-text-small-size);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+.doordash-theme .dd-pill-link:hover {
+  background-color: var(--dd-red-tint);
+}
+
+/* ---------- Eyebrow badge component ---------- */
+.doordash-theme .dd-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dd-space-2);
+  padding: 7px 13px;
+  border: 1px solid var(--dd-red-tint);
+  border-radius: var(--dd-radius-pill);
+  background-color: var(--dd-white);
+  color: var(--dd-red);
+  font-size: var(--dd-text-caption-size);
+  font-weight: 900;
+  line-height: 14px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- Layout utility classes ---------- */
+.doordash-theme .dd-container {
+  width: 100%;
+  max-width: var(--dd-max-width);
+  margin-inline: auto;
+  padding-inline: var(--dd-container-padding);
+}
+
+/* ---------- Button components ---------- */
+.doordash-theme .dd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dd-space-2);
+  font-family: var(--dd-font-primary);
+  font-size: var(--dd-text-button-size);
+  font-weight: var(--dd-text-button-weight);
+  border-radius: var(--dd-radius-pill);
+  padding: var(--dd-space-3) var(--dd-space-5);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.doordash-theme .dd-btn-primary {
+  background-color: var(--dd-color-primary);
+  color: var(--dd-white);
+}
+.doordash-theme .dd-btn-primary:hover {
+  background-color: var(--dd-color-primary-hover);
+}
+.doordash-theme .dd-btn-primary:active {
+  background-color: var(--dd-color-primary-active);
+}
+
+.doordash-theme .dd-btn-secondary {
+  background-color: transparent;
+  color: var(--dd-text-primary);
+  border-color: var(--dd-text-primary);
+}
+.doordash-theme .dd-btn-secondary:hover {
+  background-color: var(--dd-text-primary);
+  color: var(--dd-white);
+}
+
+.doordash-theme .dd-btn-tertiary {
+  background-color: transparent;
+  color: var(--dd-color-link);
+  border-radius: 0;
+  padding: var(--dd-space-1) 0;
+  text-decoration: underline;
+}
+.doordash-theme .dd-btn-tertiary:hover {
+  color: var(--dd-color-link-hover);
+}
+
+/* ---------- Card component ---------- */
+.doordash-theme .dd-card {
+  background-color: var(--dd-white);
+  border: 1px solid var(--dd-card-border);
+  border-radius: 20px;
+  box-shadow: var(--dd-shadow-card);
+  padding: var(--dd-space-5);
+}
+
+/* ---------- Input component ---------- */
+.doordash-theme .dd-input {
+  font-family: var(--dd-font-primary);
+  font-size: var(--dd-text-small-size);
+  line-height: var(--dd-text-small-lh);
+  color: var(--dd-input-text);
+  background-color: var(--dd-white);
+  border: 1px solid var(--dd-input-border);
+  border-radius: var(--dd-radius-sm);
+  box-shadow: 0 0 0 1px var(--dd-grey-light) inset;
+  min-height: 40px;
+  padding: 10px var(--dd-space-4);
+}
+.doordash-theme .dd-input:focus {
+  outline: none;
+  border-color: var(--dd-color-link);
+  box-shadow: 0 0 0 3px var(--dd-blue-light);
+}

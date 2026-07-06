@@ -2,6 +2,7 @@
 "use client"
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Button } from "../ui/button"
 import { cn } from "@/lib/utils"
 import {
@@ -17,6 +18,9 @@ import { BuilderContent } from '@builder.io/react';
 
 
 export function Header({ headerContent }: any) {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/dd")) return null;
+
   return (
     <BuilderContent model="header-links" content={headerContent}>
       {(data) => {
@@ -69,6 +73,25 @@ export function Header({ headerContent }: any) {
                   strokeLinejoin="round"
                 >
                   <path d="M6 4h3.5V2.5a1.5 1.5 0 0 1 3 0V4H16a2 2 0 0 1 2 2v3.5h1.5a1.5 1.5 0 0 1 0 3H18V16a2 2 0 0 1-2 2h-3.5v1.5a1.5 1.5 0 0 1-3 0V18H6a2 2 0 0 1-2-2v-3.5H2.5a1.5 1.5 0 0 1 0-3H4V6a2 2 0 0 1 2-2z" />
+                </svg>
+              </Link>
+              <Link
+                href="/doordash"
+                title="DoorDash Design System"
+                className="flex h-9 w-9 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 3a9 9 0 0 1 0 18" fill="currentColor" stroke="none" />
                 </svg>
               </Link>
               <CartSlider variant="black" />
