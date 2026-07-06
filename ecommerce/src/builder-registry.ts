@@ -1,5 +1,6 @@
 "use client";
 import "@builder.io/widgets";
+import React from "react";
 import { builder, Builder, withChildren } from "@builder.io/react";
 import Accordion from "./components/Accordion/accordion";
 import AlgoliaSearchBox from "./components/AlgoliaSearchBox/AlgoliaSearchBox";
@@ -16,6 +17,15 @@ import SplitHero from "./components/Hero/SplitHero";
 import TextHero from "./components/Hero/TextHero";
 import UpsellPopup from "./components/Popup/UpsellPopup";
 import CustomText from "./components/CustomText";
+import { DoorDashHeader } from "../app/doordash/components/DoorDashHeader";
+import { DoorDashFooter } from "../app/doordash/components/DoorDashFooter";
+import { DoorDashHero } from "../app/doordash/components/DoorDashHero";
+import { DoorDashHeroSection } from "../app/doordash/components/DoorDashHeroSection";
+import { DoorDashLeadForm } from "../app/doordash/components/DoorDashLeadForm";
+import { DoorDashSplitAccordion } from "../app/doordash/components/DoorDashSplitAccordion";
+import { DoorDashKPICard } from "../app/doordash/components/DoorDashKPICard";
+import { DoorDashMetricsCarousel } from "../app/doordash/components/DoorDashMetricsCarousel";
+import { DoorDashVerticalSections } from "../app/doordash/components/DoorDashVerticalSections";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
@@ -24,49 +34,76 @@ Builder.register("editor.settings", {
   allowOverridingTokens: true, // optional
   designTokens: {
     colors: [
-      { name: "Primary", value: "var(--color-primary, #000000)" },
-      { name: "Secondary", value: "var(--color-secondary, #ffffff)" },
-      { name: "Deconstructive", value: "var(--color-deconstructive, #18B4F4)" },
-      { name: "Muted", value: "var(--color-muted, #C8E2EE)" },
-      { name: "Accent", value: "var(--color-accent, #F35959)" },
-      { name: "Energetic", value: "var(--color-energetic, #A97FF2)" },
-      { name: "Background", value: "var(--color-background, #ffffff)" },
-      { name: "Text", value: "var(--color-primary, #000000)" },
-      { name: "Text Muted", value: "var(--color-muted, #e2e8f0)" },
-      {
-        name: "Background Light",
-        value: "var(--color-background-light, #FAFAFA)",
-      },
+      { name: "Red (Primary)", value: "var(--dd-red, #ff3008)" },
+      { name: "Red Hover", value: "var(--dd-red-hover, #e02b07)" },
+      { name: "Red Active", value: "var(--dd-red-active, #c42506)" },
+      { name: "Red Button", value: "var(--dd-red-button, #eb1700)" },
+      { name: "Red Deep", value: "var(--dd-red-deep, #570000)" },
+      { name: "Red Tint", value: "var(--dd-red-tint, #ffe5df)" },
+      { name: "Navy", value: "var(--dd-navy, #233069)" },
+      { name: "Blue Mid", value: "var(--dd-blue-mid, #4969f5)" },
+      { name: "Blue Light", value: "var(--dd-blue-light, #e4ebf7)" },
+      { name: "Teal Dark", value: "var(--dd-teal-dark, #024c52)" },
+      { name: "Teal Mid", value: "var(--dd-teal-mid, #4ba0a7)" },
+      { name: "Burgundy", value: "var(--dd-burgundy, #810b00)" },
+      { name: "Yellow Dark", value: "var(--dd-yellow-dark, #a16c00)" },
+      { name: "Pink", value: "var(--dd-pink, #e97c69)" },
+      { name: "Pink Background", value: "var(--dd-pink-bg, #ffe8fe)" },
+      { name: "Stone", value: "var(--dd-stone, #e7e4d9)" },
+      { name: "White", value: "var(--dd-white, #ffffff)" },
+      { name: "Grey Light", value: "var(--dd-grey-light, #f6f6f6)" },
+      { name: "Grey Dark", value: "var(--dd-grey-dark, #414141)" },
+      { name: "Text Primary", value: "var(--dd-text-primary, #191919)" },
+      { name: "Text Medium", value: "var(--dd-text-medium, #434343)" },
+      { name: "Text Muted", value: "var(--dd-text-muted, #606060)" },
+      { name: "Border", value: "var(--dd-border, #e7e4d9)" },
+      { name: "Background", value: "var(--dd-background, #ffffff)" },
+      { name: "Background Alt", value: "var(--dd-background-alt, #f6f6f6)" },
     ],
     spacing: [
-      { name: "Large", value: "var(--space-large, 20px)" },
-      { name: "Small", value: "var(--space-small, 10px)" },
-      { name: "Tiny", value: "5px" },
+      { name: "Space 1 (4px)", value: "var(--dd-space-1, 0.25rem)" },
+      { name: "Space 2 (8px)", value: "var(--dd-space-2, 0.5rem)" },
+      { name: "Space 3 (12px)", value: "var(--dd-space-3, 0.75rem)" },
+      { name: "Space 4 (16px)", value: "var(--dd-space-4, 1rem)" },
+      { name: "Space 5 (24px)", value: "var(--dd-space-5, 1.5rem)" },
+      { name: "Space 6 (32px)", value: "var(--dd-space-6, 2rem)" },
+      { name: "Space 7 (48px)", value: "var(--dd-space-7, 3rem)" },
+      { name: "Space 8 (64px)", value: "var(--dd-space-8, 4rem)" },
+      { name: "Space 9 (96px)", value: "var(--dd-space-9, 6rem)" },
+      { name: "Space 10 (128px)", value: "var(--dd-space-10, 8rem)" },
     ],
-    fontFamily: [{ name: "Primary", value: "var(--primary-font, Poppins)" }],
+    fontFamily: [
+      { name: "Primary", value: "var(--dd-font-primary, 'TT-Norms', sans-serif)" },
+      { name: "Secondary", value: "var(--dd-font-secondary, 'TT-Norms', Georgia, serif)" },
+      { name: "Condensed", value: "var(--dd-font-condensed, 'DD-TTNorms Condensed', sans-serif)" },
+    ],
     fontSize: [
-      { name: "Small", value: "var(--font-size-small, 12px)" },
-      { name: "Medium", value: "var(--font-size-medium, 24px)" },
-      { name: "Large", value: "var(--font-size-large, 36px)" },
+      { name: "H1", value: "var(--dd-text-h1-size, 3rem)" },
+      { name: "H2", value: "var(--dd-text-h2-size, 2.25rem)" },
+      { name: "H3", value: "var(--dd-text-h3-size, 1.75rem)" },
+      { name: "H4", value: "var(--dd-text-h4-size, 1.375rem)" },
+      { name: "H5", value: "var(--dd-text-h5-size, 1.125rem)" },
+      { name: "Body", value: "var(--dd-text-body-size, 1rem)" },
+      { name: "Small", value: "var(--dd-text-small-size, 0.875rem)" },
+      { name: "Caption", value: "var(--dd-text-caption-size, 0.75rem)" },
     ],
     fontWeight: [
-      { name: "Light", value: "var(--font-weight-light, 200)" },
-      { name: "Normal", value: "var(--font-weight-regular, 400)" },
-      { name: "Medium", value: "var(--font-weight-medium, 600)" },
-      { name: "Bold", value: "var(--font-weight-bold, 800)" },
+      { name: "Regular", value: "var(--dd-text-body-weight, 400)" },
+      { name: "Bold", value: "var(--dd-text-h1-weight, 700)" },
     ],
     letterSpacing: [
-      { name: "Tight", value: "var(--letter-spacing-tight, -0.02em)" },
-      { name: "Normal", value: "var(--letter-spacing-normal, 0em)" },
-      { name: "Relaxed", value: "var(--letter-spacing-wide, 0.02em)" },
-      { name: "Loose", value: "var(--letter-spacing-wide, 0.04em)" },
+      { name: "Tight", value: "var(--dd-text-h1-letter-spacing, -2px)" },
+      { name: "Normal", value: "0px" },
     ],
     lineHeight: [
-      { name: "None", value: "var(--line-height-none, 1)" },
-      { name: "Tight", value: "var(--line-height-tight, 1.2)" },
-      { name: "Normal", value: "var(--line-height-normal, 1.5)" },
-      { name: "Relaxed", value: "var(--line-height-relaxed, 1.8)" },
-      { name: "Loose", value: "var(--line-height-loose, 2)" },
+      { name: "H1", value: "var(--dd-text-h1-lh, 1)" },
+      { name: "H2", value: "var(--dd-text-h2-lh, 1.15)" },
+      { name: "H3", value: "var(--dd-text-h3-lh, 1.2)" },
+      { name: "H4", value: "var(--dd-text-h4-lh, 1.3)" },
+      { name: "H5", value: "var(--dd-text-h5-lh, 1.4)" },
+      { name: "Body", value: "var(--dd-text-body-lh, 1.5)" },
+      { name: "Small", value: "var(--dd-text-small-lh, 1.4)" },
+      { name: "Caption", value: "var(--dd-text-caption-lh, 1.3)" },
     ],
   },
 });
@@ -120,6 +157,23 @@ Builder.register("insertMenu", {
   name: "Popups",
   items: [{ name: "UpsellPopup" }],
 });
+
+if (Builder.isBrowser) {
+  if (builder.editingModel === "doordash-page") {
+    Builder.register("insertMenu", {
+      name: "door-components",
+      items: [
+        { name: "DoorDashHero" },
+        { name: "DoorDashHeroSection" },
+        { name: "DoorDashLeadForm" },
+        { name: "DoorDashSplitAccordion" },
+        { name: "DoorDashKPICard" },
+        { name: "DoorDashMetricsCarousel" },
+        { name: "DoorDashVerticalSections" },
+      ],
+    });
+  }
+}
 
 Builder.registerComponent(Counter, {
   name: "Counter",
@@ -600,6 +654,245 @@ Builder.registerComponent(CustomText, {
         // Example "open in a new tab" using Enum, could be a boolean value instead
         { name: "target", type: "string", enum: ["_blank", "_self"] },
         { name: "rel", type: "string" },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(DoorDashHeader, {
+  name: "DoorDashHeader",
+  inputs: [],
+});
+
+Builder.registerComponent(DoorDashFooter, {
+  name: "DoorDashFooter",
+  inputs: [],
+});
+
+Builder.registerComponent(DoorDashHero, {
+  name: "DoorDashHero",
+  inputs: [
+    {
+      name: "eyebrow",
+      type: "string",
+      required: true,
+      defaultValue: "DoorDash Commerce Platform",
+    },
+    {
+      name: "heading",
+      type: "string",
+      required: true,
+      defaultValue: "Grow your restaurant on your website, app, and our marketplace",
+    },
+    {
+      name: "subheading",
+      type: "longText",
+      defaultValue:
+        "DoorDash Commerce Platform brings everything together, from online ordering to built-in marketing, so you can drive repeat orders without extra tools.",
+    },
+  ],
+});
+
+function DoorDashHeroSectionAdapter({
+  images,
+  children,
+}: {
+  images?: { image: string }[];
+  children?: React.ReactNode;
+}) {
+  return React.createElement(DoorDashHeroSection, {
+    images: (images ?? []).map((entry) => entry.image),
+    children,
+  });
+}
+
+Builder.registerComponent(withChildren(DoorDashHeroSectionAdapter), {
+  name: "DoorDashHeroSection",
+  canHaveChildren: true,
+  inputs: [
+    {
+      name: "images",
+      type: "list",
+      friendlyName: "Images (outerLeft, innerLeft, innerRight, outerRight)",
+      subFields: [{ name: "image", type: "file" }],
+      defaultValue: [
+        { image: "https://images.ctfassets.net/trvmqu12jq2l/1zZ8Yh6m2fTMoCQHIyliXT/f1107e7a6e65f215abba4351f83d951c/hero-img-table-phones.avif?w=470&fm=webp&q=80" },
+        { image: "https://images.ctfassets.net/trvmqu12jq2l/6QHALHTeb99Mps00wKoiK5/b7b0a726093b1f14f5323700785f59f5/hero-img-computer.avif?w=562&fm=webp&q=80" },
+        { image: "https://images.ctfassets.net/trvmqu12jq2l/1wrdeCzkYvD6wkFdXusIRQ/967c4c73f89f74a5271e983890ceb7c2/hero-img-money.avif?w=470&fm=webp&q=80" },
+        { image: "https://images.ctfassets.net/trvmqu12jq2l/6OQSDiuz2xbgTkHFl8JZYv/99bf8757a5368fc08fcf39b941d2a8b4/hero-img-delivery-app.avif?w=562&fm=webp&q=80" },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(DoorDashLeadForm, {
+  name: "DoorDashLeadForm",
+  inputs: [
+    {
+      name: "heading",
+      type: "string",
+      defaultValue: "Offer commission-free ordering on your own channels",
+    },
+    {
+      name: "fields",
+      type: "list",
+      subFields: [
+        { name: "name", type: "string", required: true },
+        { name: "label", type: "string", required: true },
+        {
+          name: "type",
+          type: "string",
+          enum: ["text", "email", "tel", "select"],
+          defaultValue: "text",
+        },
+        {
+          name: "options",
+          type: "list",
+          subFields: [{ name: "option", type: "string" }],
+          showIf: (options: any) => options.get("type") === "select",
+        },
+        {
+          name: "span",
+          type: "string",
+          enum: ["half", "full"],
+          defaultValue: "full",
+        },
+      ],
+    },
+    {
+      name: "submitLabel",
+      type: "string",
+      required: true,
+      defaultValue: "Talk to a growth expert",
+    },
+    {
+      name: "consentText",
+      type: "longText",
+      defaultValue:
+        'By clicking "Talk to a growth expert," I agree to receive marketing electronic communications from DoorDash.',
+    },
+    {
+      name: "bare",
+      type: "boolean",
+      defaultValue: false,
+    },
+  ],
+});
+
+Builder.registerComponent(DoorDashSplitAccordion, {
+  name: "DoorDashSplitAccordion",
+  inputs: [
+    {
+      name: "items",
+      type: "list",
+      subFields: [
+        { name: "title", type: "string", required: true },
+        { name: "description", type: "longText", required: true },
+        { name: "href", type: "url" },
+        { name: "image", type: "file", required: true },
+      ],
+      defaultValue: [
+        {
+          title: "Commission-Free Online Ordering",
+          description:
+            "Add direct ordering to your website in less than a day. Your menu syncs automatically with Marketplace, checkout is optimized to convert, and every delivery is fulfilled by Dashers.",
+          href: "https://merchants.doordash.com/en-us/products/online-ordering",
+          image:
+            "https://images.ctfassets.net/trvmqu12jq2l/68KRk8TjlmiyO3vd8bHcuV/15ef3d5d2d1d0401698698c275899f51/DCP_-_Online_ordering.png?q=60&w=1521&fm=webp",
+        },
+        {
+          title: "Branded Mobile App",
+          description:
+            "A custom-branded mobile app built just for you and designed to drive repeat business with effortless reordering and built-in push notifications that keep you top of mind.",
+          href: "https://merchants.doordash.com/en-us/products/mobile-apps",
+          image:
+            "https://images.ctfassets.net/trvmqu12jq2l/4ppkYC7KOm6DF0UhkDkJg0/77299dc5a7479b3abd4f4d4d5c5c0919/Branded_Mobile_App_-_Tomatillo_Taqueria_-_V1_-_Square.png?q=60&w=1280&fm=webp",
+        },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(DoorDashKPICard, {
+  name: "DoorDashKPICard",
+  inputs: [
+    { name: "value", type: "string", required: true, defaultValue: "+59%" },
+    { name: "label", type: "string", required: true, defaultValue: "Increase in online orders" },
+    { name: "sublabel", type: "string", required: true, defaultValue: "Total online orders grew in 6 weeks" },
+    { name: "name", type: "string", required: true, defaultValue: "Johnny OX Pizzeria" },
+    {
+      name: "image",
+      type: "file",
+      required: true,
+      defaultValue:
+        "https://images.ctfassets.net/trvmqu12jq2l/lsuCtPPA7US1p7nCnLnwT/1645738fa839f9c84cfaf1797104b417/testimonial-johnny-ox-pizzeria-3.avif?q=80&w=900&fm=webp",
+    },
+    { name: "personName", type: "string", defaultValue: "Frank Ostini" },
+    { name: "isActive", type: "boolean", defaultValue: true },
+  ],
+});
+
+Builder.registerComponent(DoorDashMetricsCarousel, {
+  name: "DoorDashMetricsCarousel",
+  inputs: [
+    {
+      name: "metrics",
+      type: "list",
+      subFields: [
+        { name: "value", type: "string", required: true },
+        { name: "label", type: "string", required: true },
+        { name: "sublabel", type: "string", required: true },
+        { name: "name", type: "string", required: true },
+        { name: "image", type: "file", required: true },
+        { name: "personName", type: "string" },
+      ],
+      defaultValue: [
+        {
+          value: "+59%",
+          label: "Increase in online orders",
+          sublabel: "Total online orders grew in 6 weeks",
+          name: "Johnny OX Pizzeria",
+          image:
+            "https://images.ctfassets.net/trvmqu12jq2l/lsuCtPPA7US1p7nCnLnwT/1645738fa839f9c84cfaf1797104b417/testimonial-johnny-ox-pizzeria-3.avif?q=80&w=900&fm=webp",
+          personName: "Frank Ostini",
+        },
+        {
+          value: "$5K+",
+          label: "In loyalty-attributed sales",
+          sublabel: "In two months",
+          name: "Bowls of Rice",
+          image:
+            "https://images.ctfassets.net/trvmqu12jq2l/6mwD5fxr8qgZTy30R61UPW/b3b5270a16fc505e63d0981d89067705/testimonial-bowls-of-rice-1-5.avif?q=80&w=900&fm=webp",
+          personName: "Wesley Li",
+        },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(DoorDashVerticalSections, {
+  name: "DoorDashVerticalSections",
+  inputs: [
+    {
+      name: "sections",
+      type: "list",
+      subFields: [
+        { name: "heading", type: "string", required: true },
+        { name: "supportText", type: "string" },
+        { name: "description", type: "longText", required: true },
+      ],
+      defaultValue: [
+        {
+          supportText: "Stop juggling multiple systems and comparing data manually",
+          heading: "Run all your ordering channels in one place",
+          description:
+            "We build your branded website and mobile app, and connect them with your storepage on Marketplace so you can update your menu in one place and have it sync everywhere.",
+        },
+        {
+          heading: "Get customer insights from Marketplace orders",
+          description:
+            "When Marketplace customers join your loyalty program, you can now market to them directly through DoorDash Commerce Platform, turning one-time orders into repeat visits across every channel.",
+        },
       ],
     },
   ],

@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"builder-cms": {
+			"url": "https://mcp.builder.io/mcp/publish",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}
