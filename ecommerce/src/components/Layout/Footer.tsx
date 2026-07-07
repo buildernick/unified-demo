@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
   const [ isMounted, setIsMounted ] = useState(false);
   useEffect(() => setIsMounted(true));
   const pathname = usePathname();
-  if (pathname?.startsWith("/dd")) return null;
+  if (pathname?.startsWith("/dd") || pathname?.startsWith("/doordash")) return null;
 
   const navItems = [
     "WOMEN",

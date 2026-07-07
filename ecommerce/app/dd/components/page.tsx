@@ -8,6 +8,9 @@ import { DoorDashSplitAccordion } from "../../doordash/components/DoorDashSplitA
 import { DoorDashKPICard } from "../../doordash/components/DoorDashKPICard";
 import { DoorDashMetricsCarousel } from "../../doordash/components/DoorDashMetricsCarousel";
 import { DoorDashVerticalSections } from "../../doordash/components/DoorDashVerticalSections";
+import { DoorDashButton } from "../../doordash/components/DoorDashButton";
+import { DoorDashPillLink } from "../../doordash/components/DoorDashPillLink";
+import { DoorDashEyebrow } from "../../doordash/components/DoorDashEyebrow";
 import { heroImages, accordionItems, metrics, verticalSections } from "../../doordash/sample-data";
 
 function GallerySection({
@@ -43,7 +46,7 @@ export default function DoorDashComponentGalleryPage() {
 
       <main className="flex-1 pt-[72px]">
         <div className="dd-container py-12">
-          <p className="dd-eyebrow mb-4 inline-flex">Component Gallery</p>
+          <p className="dd-eyebrow uppercase mb-4 inline-flex">Component Gallery</p>
           <h1 className="dd-h1 max-w-[720px] text-[var(--dd-red)]">DoorDash Components</h1>
           <p className="dd-body mt-4 max-w-[640px] text-[var(--dd-text-medium)]">
             Every reusable DoorDash-themed component built so far, in one place, for reference when
@@ -58,11 +61,11 @@ export default function DoorDashComponentGalleryPage() {
               description="Primary, secondary, and tertiary buttons, pill links, and the eyebrow badge."
             >
               <div className="flex flex-wrap items-center gap-4">
-                <button className="dd-btn dd-btn-primary">Talk to a growth expert</button>
-                <button className="dd-btn dd-btn-secondary">Learn more</button>
-                <button className="dd-btn dd-btn-tertiary">See how they did it</button>
-                <a href="#" className="dd-pill-link">Learn more</a>
-                <span className="dd-eyebrow">DoorDash Commerce Platform</span>
+                <DoorDashButton variant="primary" text="Talk to a growth expert" />
+                <DoorDashButton variant="secondary" text="Learn more" />
+                <DoorDashButton variant="tertiary" text="See how they did it" />
+                <DoorDashPillLink text="Learn more" />
+                <DoorDashEyebrow text="DoorDash Commerce Platform" />
               </div>
             </GallerySection>
 

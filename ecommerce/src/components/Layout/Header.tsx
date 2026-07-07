@@ -19,7 +19,7 @@ import { BuilderContent } from '@builder.io/react';
 
 export function Header({ headerContent }: any) {
   const pathname = usePathname();
-  if (pathname?.startsWith("/dd")) return null;
+  if (pathname?.startsWith("/dd") || pathname?.startsWith("/doordash")) return null;
 
   return (
     <BuilderContent model="header-links" content={headerContent}>

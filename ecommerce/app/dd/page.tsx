@@ -17,7 +17,7 @@ export default function DoorDashHomePage() {
         <section className="flex flex-col items-center px-6 py-12 md:py-16">
           <div className="flex w-full max-w-[1296px] flex-col items-center gap-12 md:gap-16">
             <div className="flex flex-col items-center gap-4 text-center">
-              <span className="dd-eyebrow">DoorDash Commerce Platform</span>
+              <span className="dd-eyebrow uppercase">DoorDash Commerce Platform</span>
               <h1 className="dd-h1 max-w-[888px]">
                 <span className="block" style={{ color: "var(--dd-red)" }}>
                   Grow your restaurant on

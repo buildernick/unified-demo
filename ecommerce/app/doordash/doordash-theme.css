@@ -143,7 +143,7 @@
 }
 
 /* ---------- Typography utility classes ---------- */
-.doordash-theme h1,
+:where(.doordash-theme) h1,
 .doordash-theme .dd-h1 {
   font-size: var(--dd-text-h1-size);
   line-height: var(--dd-text-h1-lh);
@@ -153,7 +153,7 @@
   margin: 0;
 }
 
-.doordash-theme h2,
+:where(.doordash-theme) h2,
 .doordash-theme .dd-h2 {
   font-size: var(--dd-text-h2-size);
   line-height: var(--dd-text-h2-lh);
@@ -162,7 +162,7 @@
   margin: 0;
 }
 
-.doordash-theme h3,
+:where(.doordash-theme) h3,
 .doordash-theme .dd-h3 {
   font-size: var(--dd-text-h3-size);
   line-height: var(--dd-text-h3-lh);
@@ -171,7 +171,7 @@
   margin: 0;
 }
 
-.doordash-theme h4,
+:where(.doordash-theme) h4,
 .doordash-theme .dd-h4 {
   font-size: var(--dd-text-h4-size);
   line-height: var(--dd-text-h4-lh);
@@ -180,7 +180,7 @@
   margin: 0;
 }
 
-.doordash-theme h5,
+:where(.doordash-theme) h5,
 .doordash-theme .dd-h5 {
   font-size: var(--dd-text-h5-size);
   line-height: var(--dd-text-h5-lh);
@@ -189,7 +189,7 @@
   margin: 0;
 }
 
-.doordash-theme p,
+:where(.doordash-theme) p,
 .doordash-theme .dd-body {
   font-size: var(--dd-text-body-size);
   line-height: var(--dd-text-body-lh);
@@ -256,7 +256,6 @@
   font-size: var(--dd-text-caption-size);
   font-weight: 900;
   line-height: 14px;
-  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -327,6 +326,9 @@
 
 /* ---------- Input component ---------- */
 .doordash-theme .dd-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   font-family: var(--dd-font-primary);
   font-size: var(--dd-text-small-size);
   line-height: var(--dd-text-small-lh);

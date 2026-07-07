@@ -26,6 +26,15 @@ import { DoorDashSplitAccordion } from "../app/doordash/components/DoorDashSplit
 import { DoorDashKPICard } from "../app/doordash/components/DoorDashKPICard";
 import { DoorDashMetricsCarousel } from "../app/doordash/components/DoorDashMetricsCarousel";
 import { DoorDashVerticalSections } from "../app/doordash/components/DoorDashVerticalSections";
+import { DoorDashButton } from "../app/doordash/components/DoorDashButton";
+import { DoorDashPillLink } from "../app/doordash/components/DoorDashPillLink";
+import { DoorDashEyebrow } from "../app/doordash/components/DoorDashEyebrow";
+import { DoorDashFormContainer } from "../app/doordash/components/DoorDashFormContainer";
+import { DoorDashFormTextField } from "../app/doordash/components/DoorDashFormTextField";
+import { DoorDashFormEmailField } from "../app/doordash/components/DoorDashFormEmailField";
+import { DoorDashFormPhoneField } from "../app/doordash/components/DoorDashFormPhoneField";
+import { DoorDashFormSelectField } from "../app/doordash/components/DoorDashFormSelectField";
+import { DoorDashFormSubmitButton } from "../app/doordash/components/DoorDashFormSubmitButton";
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
@@ -161,7 +170,8 @@ Builder.register("insertMenu", {
 if (Builder.isBrowser) {
   if (builder.editingModel === "doordash-page") {
     Builder.register("insertMenu", {
-      name: "door-components",
+      name: "DoorDash Components",
+      priority: 2,
       items: [
         { name: "DoorDashHero" },
         { name: "DoorDashHeroSection" },
@@ -170,6 +180,21 @@ if (Builder.isBrowser) {
         { name: "DoorDashKPICard" },
         { name: "DoorDashMetricsCarousel" },
         { name: "DoorDashVerticalSections" },
+        { name: "DoorDashButton" },
+        { name: "DoorDashPillLink" },
+        { name: "DoorDashEyebrow" },
+      ],
+    });
+    Builder.register("insertMenu", {
+      name: "Door Dash Form Components",
+      priority: 2,
+      items: [
+        { name: "DoorDashFormContainer" },
+        { name: "DoorDashFormTextField" },
+        { name: "DoorDashFormEmailField" },
+        { name: "DoorDashFormPhoneField" },
+        { name: "DoorDashFormSelectField" },
+        { name: "DoorDashFormSubmitButton" },
       ],
     });
   }
@@ -661,16 +686,19 @@ Builder.registerComponent(CustomText, {
 
 Builder.registerComponent(DoorDashHeader, {
   name: "DoorDashHeader",
+  friendlyName: "Header",
   inputs: [],
 });
 
 Builder.registerComponent(DoorDashFooter, {
   name: "DoorDashFooter",
+  friendlyName: "Footer",
   inputs: [],
 });
 
 Builder.registerComponent(DoorDashHero, {
   name: "DoorDashHero",
+  friendlyName: "Hero",
   inputs: [
     {
       name: "eyebrow",
@@ -708,6 +736,7 @@ function DoorDashHeroSectionAdapter({
 
 Builder.registerComponent(withChildren(DoorDashHeroSectionAdapter), {
   name: "DoorDashHeroSection",
+  friendlyName: "Hero Section",
   canHaveChildren: true,
   inputs: [
     {
@@ -727,6 +756,7 @@ Builder.registerComponent(withChildren(DoorDashHeroSectionAdapter), {
 
 Builder.registerComponent(DoorDashLeadForm, {
   name: "DoorDashLeadForm",
+  friendlyName: "Lead Form",
   inputs: [
     {
       name: "heading",
@@ -781,6 +811,7 @@ Builder.registerComponent(DoorDashLeadForm, {
 
 Builder.registerComponent(DoorDashSplitAccordion, {
   name: "DoorDashSplitAccordion",
+  friendlyName: "Split Accordion",
   inputs: [
     {
       name: "items",
@@ -815,6 +846,7 @@ Builder.registerComponent(DoorDashSplitAccordion, {
 
 Builder.registerComponent(DoorDashKPICard, {
   name: "DoorDashKPICard",
+  friendlyName: "KPI Card",
   inputs: [
     { name: "value", type: "string", required: true, defaultValue: "+59%" },
     { name: "label", type: "string", required: true, defaultValue: "Increase in online orders" },
@@ -834,6 +866,7 @@ Builder.registerComponent(DoorDashKPICard, {
 
 Builder.registerComponent(DoorDashMetricsCarousel, {
   name: "DoorDashMetricsCarousel",
+  friendlyName: "Metrics Carousel",
   inputs: [
     {
       name: "metrics",
@@ -872,6 +905,7 @@ Builder.registerComponent(DoorDashMetricsCarousel, {
 
 Builder.registerComponent(DoorDashVerticalSections, {
   name: "DoorDashVerticalSections",
+  friendlyName: "Vertical Sections",
   inputs: [
     {
       name: "sections",
@@ -896,4 +930,123 @@ Builder.registerComponent(DoorDashVerticalSections, {
       ],
     },
   ],
+});
+
+Builder.registerComponent(DoorDashButton, {
+  name: "DoorDashButton",
+  friendlyName: "Button",
+  defaultStyles: {
+    width: "fit-content",
+  },
+  inputs: [
+    { name: "text", type: "string", defaultValue: "Talk to a growth expert" },
+    {
+      name: "variant",
+      type: "string",
+      defaultValue: "primary",
+      enum: ["primary", "secondary", "tertiary"],
+    },
+    { name: "href", type: "url" },
+  ],
+});
+
+Builder.registerComponent(DoorDashPillLink, {
+  name: "DoorDashPillLink",
+  friendlyName: "Pill Link",
+  defaultStyles: {
+    width: "fit-content",
+  },
+  inputs: [
+    { name: "text", type: "string", defaultValue: "Learn more" },
+    { name: "href", type: "url", defaultValue: "#" },
+  ],
+});
+
+Builder.registerComponent(DoorDashEyebrow, {
+  name: "DoorDashEyebrow",
+  friendlyName: "Eyebrow Badge",
+  defaultStyles: {
+    width: "fit-content",
+  },
+  inputs: [{ name: "text", type: "string", defaultValue: "DoorDash Commerce Platform" }],
+});
+
+Builder.registerComponent(withChildren(DoorDashFormContainer), {
+  name: "DoorDashFormContainer",
+  friendlyName: "Form Container",
+  canHaveChildren: true,
+  defaultChildren: [
+    { "@type": "@builder.io/sdk:Element", component: { name: "DoorDashFormTextField", options: { name: "firstName", label: "First Name" } } },
+    { "@type": "@builder.io/sdk:Element", component: { name: "DoorDashFormTextField", options: { name: "lastName", label: "Last Name" } } },
+    { "@type": "@builder.io/sdk:Element", component: { name: "DoorDashFormEmailField", options: { name: "email", label: "Email Address" } } },
+    { "@type": "@builder.io/sdk:Element", component: { name: "DoorDashFormSubmitButton", options: { text: "Submit" } } },
+  ],
+  inputs: [
+    { name: "heading", type: "string" },
+    {
+      name: "actionUrl",
+      friendlyName: "Post URL (form action)",
+      type: "url",
+      helperText: "The URL the form data is submitted (POSTed) to when the form is sent.",
+    },
+    { name: "method", type: "string", defaultValue: "POST", enum: ["POST", "GET"] },
+    { name: "consentText", type: "longText" },
+    { name: "bare", type: "boolean", defaultValue: false },
+  ],
+});
+
+Builder.registerComponent(DoorDashFormTextField, {
+  name: "DoorDashFormTextField",
+  friendlyName: "Form Text Field",
+  inputs: [
+    { name: "name", type: "string", defaultValue: "field" },
+    { name: "label", type: "string", defaultValue: "Label" },
+    { name: "required", type: "boolean", defaultValue: true },
+  ],
+});
+
+Builder.registerComponent(DoorDashFormEmailField, {
+  name: "DoorDashFormEmailField",
+  friendlyName: "Form Email Field",
+  inputs: [
+    { name: "name", type: "string", defaultValue: "email" },
+    { name: "label", type: "string", defaultValue: "Email Address" },
+    { name: "required", type: "boolean", defaultValue: true },
+  ],
+});
+
+Builder.registerComponent(DoorDashFormPhoneField, {
+  name: "DoorDashFormPhoneField",
+  friendlyName: "Form Phone Field",
+  inputs: [
+    { name: "name", type: "string", defaultValue: "phone" },
+    { name: "label", type: "string", defaultValue: "Phone Number" },
+    { name: "required", type: "boolean", defaultValue: true },
+  ],
+});
+
+Builder.registerComponent(DoorDashFormSelectField, {
+  name: "DoorDashFormSelectField",
+  friendlyName: "Form Select Field",
+  inputs: [
+    { name: "name", type: "string", defaultValue: "field" },
+    { name: "label", type: "string", defaultValue: "Select an option" },
+    {
+      name: "options",
+      type: "list",
+      subFields: [{ name: "option", type: "string" }],
+      defaultValue: ["Option 1", "Option 2"],
+    },
+    { name: "required", type: "boolean", defaultValue: true },
+  ],
+});
+
+Builder.registerComponent(DoorDashFormSubmitButton, {
+  name: "DoorDashFormSubmitButton",
+  friendlyName: "Form Submit Button",
+  defaultStyles: {
+    width: "fit-content",
+    marginLeft: "auto",
+  },
+  inputs: [{ name: "text", type: "string", defaultValue: "Submit" }],
 });

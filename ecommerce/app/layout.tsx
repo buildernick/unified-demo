@@ -2,7 +2,7 @@ import { builder } from "@builder.io/sdk";
 import { Header } from "@/src/components/Layout/Header";
 import "./globals.css";
 import Footer from "@/src/components/Layout/Footer";
-import { RenderBuilderContent } from "@/src/components/builder";
+import { SiteBanner } from "@/src/components/Layout/SiteBanner";
 import QueryProvider from "@/src/components/QueryProvider";
 import { CartProvider } from "@/src/context/CartContext";
 
@@ -37,7 +37,7 @@ export default async function RootLayout({
         <QueryProvider>
           <CartProvider>
             <main>
-              {bannerContent && <RenderBuilderContent model="banner" content={bannerContent} data={{username: "superUser123"}} />}
+              {bannerContent && <SiteBanner content={bannerContent} />}
               <Header headerContent={headerContent} />
               <div className="container">{children}</div>
               <Footer />
