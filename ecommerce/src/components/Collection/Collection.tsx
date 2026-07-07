@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "../Card/ProductCard";
 
 const collectionAliases: Record<string, string> = {
@@ -23,6 +25,18 @@ export function Collection(props: {
   collection: string;
 }) {
   const collection = normalizeCollection(props.collection);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollByAmount = (direction: "left" | "right") => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const amount = container.clientWidth * 0.8;
+    container.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
+  };
 
   const products = useQuery<any[]>({
     queryKey: ["products", collection],
@@ -69,15 +83,36 @@ export function Collection(props: {
   });
 
   return (
-    <div className="flex flex-row overflow-auto gap-6 min-h-96">
-      {products.data?.map((product, index) => (
-        <ProductCard
-          classes="w-[200px] shrink-0"
-          key={`${product.id}-${index}`}
-          dataSource="Builder"
-          product={product}
-        />
-      ))}
+    <div className="relative">
+      <button
+        type="button"
+        aria-label="Scroll left"
+        onClick={() => scrollByAmount("left")}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-white border border-zinc-300 shadow-md hover:bg-zinc-50"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      <div
+        ref={scrollRef}
+        className="flex flex-row gap-6 min-h-96 overflow-x-hidden scroll-smooth px-12"
+      >
+        {products.data?.map((product, index) => (
+          <ProductCard
+            classes="w-[200px] shrink-0"
+            key={`${product.id}-${index}`}
+            dataSource="Builder"
+            product={product}
+          />
+        ))}
+      </div>
+      <button
+        type="button"
+        aria-label="Scroll right"
+        onClick={() => scrollByAmount("right")}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-10 h-10 rounded-full bg-white border border-zinc-300 shadow-md hover:bg-zinc-50"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
     </div>
   );
 }
