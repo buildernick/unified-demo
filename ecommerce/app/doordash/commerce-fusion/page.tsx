@@ -136,6 +136,18 @@ export default function DoorDashCommerceFusionPage() {
             </div>
             <DoorDashMetricsCarousel metrics={metrics} />
           </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a href="#get-started" className="dd-btn dd-btn-primary">
+              Get Started
+            </a>
+            <a href="#learn-more" className="dd-btn dd-btn-secondary">
+              Learn More
+            </a>
+            <a href="#faqs" className="dd-btn dd-btn-tertiary">
+              FAQs
+            </a>
+          </div>
         </div>
       </main>
 
