@@ -5,6 +5,8 @@ import { DoorDashEyebrow } from "../components/DoorDashEyebrow";
 import { DoorDashHeroSection } from "../components/DoorDashHeroSection";
 import { DoorDashLeadForm } from "../components/DoorDashLeadForm";
 import { DoorDashSplitAccordion } from "../components/DoorDashSplitAccordion";
+import { DoorDashMetricsCarousel } from "../components/DoorDashMetricsCarousel";
+import { metrics } from "../sample-data";
 
 const heroImages = [
   "https://images.ctfassets.net/trvmqu12jq2l/1zZ8Yh6m2fTMoCQHIyliXT/f1107e7a6e65f215abba4351f83d951c/hero-img-table-phones.avif?w=470&fm=webp&q=80",
@@ -122,6 +124,20 @@ export default function DoorDashCommerceFusionPage() {
           </div>
 
           <DoorDashSplitAccordion items={accordionItems} />
+
+          <div className="flex flex-col gap-2">
+            <p
+              className="text-center font-semibold"
+              style={{ fontSize: "var(--dd-text-h3-size)", color: "var(--dd-burgundy)" }}
+            >
+              Chosen by thousands of restaurants like yours
+            </p>
+            <p className="text-center" style={{ color: "var(--dd-text-muted)" }}>
+              Real operators. Real results. Powered by DoorDash technology.
+            </p>
+          </div>
+
+          <DoorDashMetricsCarousel metrics={metrics} />
         </div>
       </main>
 
