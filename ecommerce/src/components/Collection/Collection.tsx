@@ -23,8 +23,10 @@ function normalizeCollection(collection?: string) {
 
 export function Collection(props: {
   collection: string;
+  variant?: "scrollbar" | "arrows";
 }) {
   const collection = normalizeCollection(props.collection);
+  const variant = props.variant ?? "scrollbar";
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scrollByAmount = (direction: "left" | "right") => {
@@ -81,6 +83,21 @@ export function Collection(props: {
       }
     },
   });
+
+  if (variant === "scrollbar") {
+    return (
+      <div className="flex flex-row overflow-auto gap-6 min-h-96">
+        {products.data?.map((product, index) => (
+          <ProductCard
+            classes="w-[200px] shrink-0"
+            key={`${product.id}-${index}`}
+            dataSource="Builder"
+            product={product}
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="relative">

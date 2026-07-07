@@ -488,6 +488,21 @@ Builder.registerComponent(Collection, {
         },
       ],
     },
+    {
+      name: "variant",
+      type: "string",
+      defaultValue: "scrollbar",
+      enum: [
+        {
+          label: "Scroll bar",
+          value: "scrollbar",
+        },
+        {
+          label: "Arrows (carousel)",
+          value: "arrows",
+        },
+      ],
+    },
   ],
 });
 
