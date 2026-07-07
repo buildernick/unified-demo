@@ -3,10 +3,7 @@ import { DoorDashHeader } from "../components/DoorDashHeader";
 import { DoorDashFooter } from "../components/DoorDashFooter";
 import { DoorDashEyebrow } from "../components/DoorDashEyebrow";
 import { DoorDashHeroSection } from "../components/DoorDashHeroSection";
-import { DoorDashFormContainer } from "../components/DoorDashFormContainer";
-import { DoorDashFormTextField } from "../components/DoorDashFormTextField";
-import { DoorDashFormEmailField } from "../components/DoorDashFormEmailField";
-import { DoorDashFormSubmitButton } from "../components/DoorDashFormSubmitButton";
+import { DoorDashLeadForm } from "../components/DoorDashLeadForm";
 import { DoorDashSplitAccordion } from "../components/DoorDashSplitAccordion";
 
 const heroImages = [
@@ -101,21 +98,12 @@ export default function DoorDashCommerceFusionPage() {
           </div>
 
           <DoorDashHeroSection images={heroImages}>
-            <DoorDashFormContainer method="POST">
-              <div className="flex w-full flex-col gap-4">
-                <div className="flex flex-col gap-5 sm:flex-row">
-                  <div className="flex-1">
-                    <DoorDashFormTextField name="firstName" label="First Name" />
-                  </div>
-                  <div className="flex-1">
-                    <DoorDashFormTextField name="lastName" label="Last Name" />
-                  </div>
-                </div>
-                <DoorDashFormTextField name="restaurant" label="Restaurant Name" required />
-                <DoorDashFormEmailField name="email" label="Email Address" />
-                <DoorDashFormSubmitButton text="Submit" />
-              </div>
-            </DoorDashFormContainer>
+            <DoorDashLeadForm
+              bare
+              heading="Offer commission-free ordering on your own channels"
+              submitLabel="Talk to a growth expert"
+              consentText={'By clicking "Talk to a growth expert," I agree to receive marketing electronic communications from DoorDash.'}
+            />
           </DoorDashHeroSection>
 
           <div className="flex flex-col gap-2">

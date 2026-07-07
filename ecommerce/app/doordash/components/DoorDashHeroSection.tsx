@@ -51,7 +51,7 @@ export function DoorDashHeroSection({ images, children }: DoorDashHeroSectionPro
           className="relative z-[1] hidden h-[420px] w-full rounded-2xl object-cover md:col-start-4 md:row-start-1 md:block"
         />
 
-        <div className="relative z-10 col-start-1 row-start-1 mx-auto w-full max-w-[564px] rounded-[20px] border border-[#f8f8f8] bg-white p-6 shadow-[0_4px_25.4px_0_rgba(0,0,0,0.1)] md:col-start-2 md:col-span-2 md:justify-self-center">
+        <div className="relative z-10 col-start-1 row-start-1 mx-auto w-full max-w-[564px] rounded-[20px] border border-[#f8f8f8] bg-white p-6 shadow-[0_4px_25.4px_0_rgba(0,0,0,0.1)] md:col-start-2 md:col-span-2 md:justify-self-center md:min-h-[460px] flex flex-col justify-center">
           {children}
         </div>
       </div>
