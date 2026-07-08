@@ -19,12 +19,10 @@ function normalizeCollection(collection?: string) {
   return collectionAliases[normalizedCollection] ?? "all";
 }
 
-export function Collection(props: {
-  collection: string;
-}) {
-  const collection = normalizeCollection(props.collection);
+export function useCollectionProducts(rawCollection?: string) {
+  const collection = normalizeCollection(rawCollection);
 
-  const products = useQuery<any[]>({
+  return useQuery<any[]>({
     queryKey: ["products", collection],
     retry: false,
     queryFn: async () => {
@@ -67,6 +65,12 @@ export function Collection(props: {
       }
     },
   });
+}
+
+export function Collection(props: {
+  collection: string;
+}) {
+  const products = useCollectionProducts(props.collection);
 
   return (
     <div className="flex flex-row overflow-auto gap-6 min-h-96">

@@ -9,6 +9,7 @@ import CloudinaryImage from "@/src/components/Blocks/CloudinaryImage";
 import IconCard from "@/src/components/Card/IconCard";
 import ProductCard from "@/src/components/Card/ProductCard";
 import { Collection } from "@/src/components/Collection/Collection";
+import { CollectionCarousel } from "@/src/components/Collection/CollectionCarousel";
 import Counter from "@/src/components/Counter/Counter";
 import CustomText from "@/src/components/CustomText";
 import HeroWithChildren from "@/src/components/Hero/HeroWithChildren";
@@ -389,6 +390,12 @@ function CollectionSection() {
     <div className="px-8 py-8">
       <Example label="All products collection" fullWidth>
         <Collection collection="all" />
+      </Example>
+      <Example label="Carousel: with dots" hint="arrows on either side, no scrollbar" fullWidth>
+        <CollectionCarousel collection="all" showDots />
+      </Example>
+      <Example label="Carousel: without dots" hint="showDots: false" fullWidth>
+        <CollectionCarousel collection="all" showDots={false} />
       </Example>
     </div>
   );
@@ -891,7 +898,7 @@ const navSections = [
   {
     title: "Commerce",
     items: [
-      { name: "Collection", examples: 1, group: "Commerce", description: "Horizontally scrolling product collection sourced from Builder product data and filtered by collection.", inputs: "collection", component: CollectionSection },
+      { name: "Collection", examples: 3, group: "Commerce", description: "Horizontally scrolling product collection sourced from Builder product data and filtered by collection. Includes a carousel variant with side arrows and optional dot indicators.", inputs: "collection, showDots (carousel variant)", component: CollectionSection },
       { name: "AlgoliaSearchBox", examples: 1, group: "Commerce", description: "Algolia-powered product search with category, color, and size refinements.", inputs: "none", component: AlgoliaSection },
     ],
   },
