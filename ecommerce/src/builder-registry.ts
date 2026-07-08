@@ -7,7 +7,6 @@ import { Button } from "./components/ui/button";
 import BynderImage from "./components/Blocks/BynderImage";
 import CloudinaryImage from "./components/Blocks/CloudinaryImage";
 import { Collection } from "./components/Collection/Collection";
-import { CollectionCarousel } from "./components/Collection/CollectionCarousel";
 import Counter from "./components/Counter/Counter";
 import HeroWithChildren from "./components/Hero/HeroWithChildren";
 import IconCard from "./components/Card/IconCard";
@@ -489,42 +488,30 @@ Builder.registerComponent(Collection, {
         },
       ],
     },
-  ],
-});
-
-Builder.registerComponent(CollectionCarousel, {
-  name: "CollectionCarousel",
-  image:
-    "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2F1ae5db0ccbdb4f3caab13e10dc6d7e0c",
-  inputs: [
     {
-      name: "collection",
+      name: "variant",
       type: "string",
-      defaultValue: "all",
+      friendlyName: "Layout",
+      defaultValue: "scroll",
       enum: [
         {
-          label: "Featured / All",
-          value: "all",
+          label: "Scroll",
+          value: "scroll",
         },
         {
-          label: "Women",
-          value: "women",
-        },
-        {
-          label: "Men",
-          value: "men",
-        },
-        {
-          label: "Accessories",
-          value: "accessories",
+          label: "Carousel",
+          value: "carousel",
         },
       ],
     },
     {
       name: "showDots",
       type: "boolean",
-      defaultValue: true,
       friendlyName: "Show dot indicators",
+      defaultValue: true,
+      showIf: function (options: any) {
+        return options.get("variant") === "carousel";
+      },
     },
   ],
 });
