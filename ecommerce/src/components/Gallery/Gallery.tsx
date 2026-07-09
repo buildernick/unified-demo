@@ -30,7 +30,7 @@ const denimImage =
 const headerLogo =
   "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2F692369ff646645349e68a86b43fc7a38";
 const iconCardImage =
-  "https://cdn.builder.io/api/v1/image/assets%2F2b1d6f60871142b0af378fe4bcf3c715%2Fdb5e8eda043d4ee8a2f5769513ef6d6c?format=webp&width=800&height=1200";
+  "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2Fa6b9b54b817a4350b286bb6daebbad80";
 
 const sampleProduct = {
   data: {
