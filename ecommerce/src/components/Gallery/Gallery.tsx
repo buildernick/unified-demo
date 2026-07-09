@@ -29,7 +29,8 @@ const denimImage =
   "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2F0cde6f8ddd9d482fad53266f8ee0f3ce";
 const headerLogo =
   "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2F692369ff646645349e68a86b43fc7a38";
-const iconCardImage = "https://picsum.photos/300/300";
+const iconCardImage =
+  "https://cdn.builder.io/api/v1/image/assets%2F2b1d6f60871142b0af378fe4bcf3c715%2Fdb5e8eda043d4ee8a2f5769513ef6d6c?format=webp&width=800&height=1200";
 
 const sampleProduct = {
   data: {
@@ -303,7 +304,7 @@ function IconCardSection() {
         <div className="grid gap-4 p-6 md:grid-cols-3">
           <IconCard
             icon={iconCardImage}
-            altText="Icon"
+            altText="Star icon"
             title="Composable Content"
             description="<p>Give teams reusable blocks that match the storefront experience.</p>"
             alignment="center"
@@ -311,7 +312,7 @@ function IconCardSection() {
           />
           <IconCard
             icon={iconCardImage}
-            altText="Icon"
+            altText="Star icon"
             title="Visual Editing"
             description="<p>Preview components exactly as shoppers will see them.</p>"
             alignment="center"
@@ -319,7 +320,7 @@ function IconCardSection() {
           />
           <IconCard
             icon={iconCardImage}
-            altText="Icon"
+            altText="Star icon"
             title="Reusable Systems"
             description="<p>Build pages from well-defined component primitives.</p>"
             alignment="center"
@@ -331,7 +332,7 @@ function IconCardSection() {
         <div className="grid gap-4 p-6 md:grid-cols-2">
           <IconCard
             icon={iconCardImage}
-            altText="Icon"
+            altText="Star icon"
             title="Free Returns"
             description="<p>No-hassle returns within 30 days of purchase.</p>"
             alignment="left"
@@ -339,7 +340,7 @@ function IconCardSection() {
           />
           <IconCard
             icon={iconCardImage}
-            altText="Icon"
+            altText="Star icon"
             title="Sustainable Packaging"
             description="<p>We ship in 100% recycled materials.</p>"
             alignment="left"
@@ -351,7 +352,7 @@ function IconCardSection() {
         <div className="p-6 max-w-sm">
           <IconCard
             icon={iconCardImage}
-            altText="Icon"
+            altText="Star icon"
             title="Express Shipping"
             description="<p>Get your order in 2 business days.</p>"
             alignment="right"
