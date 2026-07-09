@@ -18,42 +18,112 @@ function resolveAssetUrl(link: any, includes: any): string | undefined {
   return url ? `https:${url}` : undefined;
 }
 
-export async function getShopHeroes() {
-  const { items, includes } = await fetchEntries(
-    "content_type=shopImageHero&fields.page=home&order=fields.order&include=2"
-  );
-  return items.map((item: any) => ({
-    ...item.fields,
-    backgroundImage: resolveAssetUrl(item.fields.backgroundImage, includes),
-  }));
+function resolveEntry(link: any, includes: any): any {
+  const entryId = link?.sys?.id;
+  if (!entryId) return undefined;
+  return includes?.Entry?.find((e: any) => e.sys.id === entryId);
 }
 
-export async function getShopFeaturedProducts() {
-  const { items, includes } = await fetchEntries(
-    "content_type=shopProduct&fields.featuredOnHome=true&order=fields.featuredOrder&include=2"
-  );
-  return items.map((item: any) => ({
-    id: item.sys.id,
+function toProductCardData(entry: any, includes: any) {
+  return {
+    id: entry?.sys?.id,
     data: {
-      productName: item.fields.productName,
-      price: item.fields.price,
-      handle: item.fields.handle,
+      productName: entry?.fields?.productName,
+      price: entry?.fields?.price,
+      handle: entry?.fields?.handle,
       images: [
         {
-          image: resolveAssetUrl(item.fields.image, includes),
-          altText: item.fields.productName,
+          image: resolveAssetUrl(entry?.fields?.image, includes),
+          altText: entry?.fields?.productName,
         },
       ],
     },
-  }));
+  };
 }
 
-export async function getShopIconFeatures() {
-  const { items, includes } = await fetchEntries(
-    "content_type=shopIconFeature&fields.page=home&order=fields.order&include=2"
-  );
-  return items.map((item: any) => ({
-    ...item.fields,
-    icon: resolveAssetUrl(item.fields.icon, includes),
-  }));
+export async function getShopHomeSections() {
+  const [heroRes, textRes, splitRes, gridRes, iconSectionRes] = await Promise.all([
+    fetchEntries("content_type=shopImageHero&fields.page=home&include=1"),
+    fetchEntries("content_type=shopTextHero&fields.page=home"),
+    fetchEntries("content_type=shopSplitHero&fields.page=home&include=1"),
+    fetchEntries("content_type=shopProductGrid&fields.page=home&include=2"),
+    fetchEntries("content_type=shopIconFeatureSection&fields.page=home&include=2"),
+  ]);
+
+  const sections: any[] = [];
+
+  for (const item of heroRes.items) {
+    sections.push({
+      type: "imageHero",
+      order: item.fields.order,
+      title: item.fields.title,
+      subtitle: item.fields.subtitle,
+      backgroundImage: resolveAssetUrl(item.fields.backgroundImage, heroRes.includes),
+      buttonText: item.fields.buttonText,
+      buttonLink: item.fields.buttonLink,
+      alignment: item.fields.alignment,
+      makeFullBleed: item.fields.makeFullBleed,
+    });
+  }
+
+  for (const item of textRes.items) {
+    sections.push({
+      type: "textHero",
+      order: item.fields.order,
+      title: item.fields.title,
+      subtitle: item.fields.subtitle,
+    });
+  }
+
+  for (const item of splitRes.items) {
+    sections.push({
+      type: "splitHero",
+      order: item.fields.order,
+      title: item.fields.title,
+      subtitle: item.fields.subtitle,
+      image: resolveAssetUrl(item.fields.image, splitRes.includes),
+      altText: item.fields.altText,
+      imageAlignment: item.fields.imageAlignment,
+      textAlignment: item.fields.textAlignment,
+      splitWidth: item.fields.splitWidth,
+      hasCta: item.fields.hasCta,
+      buttonText: item.fields.buttonText,
+      buttonLink: item.fields.buttonLink,
+      makeFullBleed: item.fields.makeFullBleed,
+    });
+  }
+
+  for (const item of gridRes.items) {
+    const products = (item.fields.products ?? []).map((link: any) =>
+      toProductCardData(resolveEntry(link, gridRes.includes), gridRes.includes)
+    );
+    sections.push({
+      type: "productGrid",
+      order: item.fields.order,
+      heading: item.fields.heading,
+      ctaText: item.fields.ctaText,
+      ctaLink: item.fields.ctaLink,
+      products,
+    });
+  }
+
+  for (const item of iconSectionRes.items) {
+    const features = (item.fields.features ?? []).map((link: any) => {
+      const entry = resolveEntry(link, iconSectionRes.includes);
+      return {
+        title: entry?.fields?.title,
+        description: entry?.fields?.description,
+        altText: entry?.fields?.altText,
+        icon: resolveAssetUrl(entry?.fields?.icon, iconSectionRes.includes),
+      };
+    });
+    sections.push({
+      type: "iconFeatureSection",
+      order: item.fields.order,
+      header: item.fields.header,
+      features,
+    });
+  }
+
+  return sections.sort((a, b) => a.order - b.order);
 }
