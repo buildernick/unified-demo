@@ -29,6 +29,8 @@ const denimImage =
   "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2F0cde6f8ddd9d482fad53266f8ee0f3ce";
 const headerLogo =
   "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2F692369ff646645349e68a86b43fc7a38";
+const iconCardImage =
+  "https://cdn.builder.io/api/v1/image/assets%2Fa87584e551b6472fa0f0a2eb10f2c0ff%2Fa6b9b54b817a4350b286bb6daebbad80";
 
 const sampleProduct = {
   data: {
@@ -301,24 +303,24 @@ function IconCardSection() {
       <Example label="3-up grid — center aligned">
         <div className="grid gap-4 p-6 md:grid-cols-3">
           <IconCard
-            icon={headerLogo}
-            altText="Builder.io logo"
+            icon={iconCardImage}
+            altText="Star icon"
             title="Composable Content"
             description="<p>Give teams reusable blocks that match the storefront experience.</p>"
             alignment="center"
             coloredBackground={false}
           />
           <IconCard
-            icon={headerLogo}
-            altText="Builder.io logo"
+            icon={iconCardImage}
+            altText="Star icon"
             title="Visual Editing"
             description="<p>Preview components exactly as shoppers will see them.</p>"
             alignment="center"
             coloredBackground={false}
           />
           <IconCard
-            icon={headerLogo}
-            altText="Builder.io logo"
+            icon={iconCardImage}
+            altText="Star icon"
             title="Reusable Systems"
             description="<p>Build pages from well-defined component primitives.</p>"
             alignment="center"
@@ -329,16 +331,16 @@ function IconCardSection() {
       <Example label="Left aligned with colored background">
         <div className="grid gap-4 p-6 md:grid-cols-2">
           <IconCard
-            icon={headerLogo}
-            altText="Builder.io logo"
+            icon={iconCardImage}
+            altText="Star icon"
             title="Free Returns"
             description="<p>No-hassle returns within 30 days of purchase.</p>"
             alignment="left"
             coloredBackground={true}
           />
           <IconCard
-            icon={headerLogo}
-            altText="Builder.io logo"
+            icon={iconCardImage}
+            altText="Star icon"
             title="Sustainable Packaging"
             description="<p>We ship in 100% recycled materials.</p>"
             alignment="left"
@@ -349,8 +351,8 @@ function IconCardSection() {
       <Example label="Single card — right aligned">
         <div className="p-6 max-w-sm">
           <IconCard
-            icon={headerLogo}
-            altText="Builder.io logo"
+            icon={iconCardImage}
+            altText="Star icon"
             title="Express Shipping"
             description="<p>Get your order in 2 business days.</p>"
             alignment="right"
