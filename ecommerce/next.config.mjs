@@ -63,6 +63,12 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.lululemon.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   experimental: {

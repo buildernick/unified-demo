@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { luluColors, luluTypeScale, luluRadii } from "./src/lulu/tokens";
 
 const config = {
   darkMode: ["class"],
@@ -57,11 +58,31 @@ const config = {
           DEFAULT: "var(--card)",
           foreground: "var(--card-foreground)",
         },
+        lulu: luluColors,
+      },
+      fontFamily: {
+        "lulu-display": ["Saans", "Helvetica Neue", "Helvetica", "Roboto", "sans-serif"],
+        "lulu-body": ["Calibre", "Helvetica Neue", "Helvetica", "Roboto", "sans-serif"],
+      },
+      fontSize: {
+        "lulu-display-xl": [luluTypeScale.displayXl.fontSize, { lineHeight: luluTypeScale.displayXl.lineHeight, letterSpacing: luluTypeScale.displayXl.letterSpacing, fontWeight: String(luluTypeScale.displayXl.fontWeight) }],
+        "lulu-display-lg": [luluTypeScale.displayLg.fontSize, { lineHeight: luluTypeScale.displayLg.lineHeight, letterSpacing: luluTypeScale.displayLg.letterSpacing, fontWeight: String(luluTypeScale.displayLg.fontWeight) }],
+        "lulu-display-md": [luluTypeScale.displayMd.fontSize, { lineHeight: luluTypeScale.displayMd.lineHeight, letterSpacing: luluTypeScale.displayMd.letterSpacing, fontWeight: String(luluTypeScale.displayMd.fontWeight) }],
+        "lulu-display-sm": [luluTypeScale.displaySm.fontSize, { lineHeight: luluTypeScale.displaySm.lineHeight, letterSpacing: luluTypeScale.displaySm.letterSpacing, fontWeight: String(luluTypeScale.displaySm.fontWeight) }],
+        "lulu-body-lg": [luluTypeScale.bodyLg.fontSize, { lineHeight: luluTypeScale.bodyLg.lineHeight, letterSpacing: luluTypeScale.bodyLg.letterSpacing, fontWeight: String(luluTypeScale.bodyLg.fontWeight) }],
+        "lulu-body-md": [luluTypeScale.bodyMd.fontSize, { lineHeight: luluTypeScale.bodyMd.lineHeight, letterSpacing: luluTypeScale.bodyMd.letterSpacing, fontWeight: String(luluTypeScale.bodyMd.fontWeight) }],
+        "lulu-body-sm": [luluTypeScale.bodySm.fontSize, { lineHeight: luluTypeScale.bodySm.lineHeight, letterSpacing: luluTypeScale.bodySm.letterSpacing, fontWeight: String(luluTypeScale.bodySm.fontWeight) }],
+        "lulu-product-title": [luluTypeScale.productTitle.fontSize, { lineHeight: luluTypeScale.productTitle.lineHeight, fontWeight: String(luluTypeScale.productTitle.fontWeight) }],
+        "lulu-label": [luluTypeScale.label.fontSize, { lineHeight: luluTypeScale.label.lineHeight, fontWeight: String(luluTypeScale.label.fontWeight) }],
+        "lulu-button": [luluTypeScale.button.fontSize, { lineHeight: luluTypeScale.button.lineHeight, letterSpacing: luluTypeScale.button.letterSpacing, fontWeight: String(luluTypeScale.button.fontWeight) }],
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "lulu-sm": luluRadii.sm,
+        "lulu-pill": luluRadii.pill,
+        "lulu-full": luluRadii.full,
       },
       keyframes: {
         "accordion-down": {

@@ -16,6 +16,26 @@ import SplitHero from "./components/Hero/SplitHero";
 import TextHero from "./components/Hero/TextHero";
 import UpsellPopup from "./components/Popup/UpsellPopup";
 import CustomText from "./components/CustomText";
+import { LuluHero } from "./lulu/components/LuluHero";
+import { LuluProductCard } from "./lulu/components/LuluProductCard";
+import { LuluCategoryCard } from "./lulu/components/LuluCategoryCard";
+import { LuluButton } from "./lulu/components/LuluButton";
+import { LuluHeadline } from "./lulu/components/LuluHeadline";
+import { LuluCategoryTitle } from "./lulu/components/LuluCategoryTitle";
+import { LuluText } from "./lulu/components/LuluText";
+import { LuluVideoCard } from "./lulu/components/LuluVideoCard";
+import {
+  luluColors,
+  luluFonts,
+  luluFontWeights,
+  luluSpacing,
+  luluTypeScale,
+} from "./lulu/tokens";
+
+function luluTokenLabel(key: string) {
+  const spaced = key.replace(/([A-Z])/g, " $1");
+  return `Lulu ${spaced.charAt(0).toUpperCase()}${spaced.slice(1)}`;
+}
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
@@ -23,51 +43,34 @@ Builder.register("editor.settings", {
   styleStrictMode: false,
   allowOverridingTokens: true, // optional
   designTokens: {
-    colors: [
-      { name: "Primary", value: "var(--color-primary, #000000)" },
-      { name: "Secondary", value: "var(--color-secondary, #ffffff)" },
-      { name: "Deconstructive", value: "var(--color-deconstructive, #18B4F4)" },
-      { name: "Muted", value: "var(--color-muted, #C8E2EE)" },
-      { name: "Accent", value: "var(--color-accent, #F35959)" },
-      { name: "Energetic", value: "var(--color-energetic, #A97FF2)" },
-      { name: "Background", value: "var(--color-background, #ffffff)" },
-      { name: "Text", value: "var(--color-primary, #000000)" },
-      { name: "Text Muted", value: "var(--color-muted, #e2e8f0)" },
-      {
-        name: "Background Light",
-        value: "var(--color-background-light, #FAFAFA)",
-      },
+    colors: Object.entries(luluColors).map(([key, value]) => ({
+      name: luluTokenLabel(key),
+      value,
+    })),
+    spacing: Object.entries(luluSpacing).map(([key, px]) => ({
+      name: `Lulu ${key}`,
+      value: `${px}px`,
+    })),
+    fontFamily: [
+      { name: "Lulu Display", value: luluFonts.display },
+      { name: "Lulu Body", value: luluFonts.body },
     ],
-    spacing: [
-      { name: "Large", value: "var(--space-large, 20px)" },
-      { name: "Small", value: "var(--space-small, 10px)" },
-      { name: "Tiny", value: "5px" },
-    ],
-    fontFamily: [{ name: "Primary", value: "var(--primary-font, Poppins)" }],
-    fontSize: [
-      { name: "Small", value: "var(--font-size-small, 12px)" },
-      { name: "Medium", value: "var(--font-size-medium, 24px)" },
-      { name: "Large", value: "var(--font-size-large, 36px)" },
-    ],
-    fontWeight: [
-      { name: "Light", value: "var(--font-weight-light, 200)" },
-      { name: "Normal", value: "var(--font-weight-regular, 400)" },
-      { name: "Medium", value: "var(--font-weight-medium, 600)" },
-      { name: "Bold", value: "var(--font-weight-bold, 800)" },
-    ],
-    letterSpacing: [
-      { name: "Tight", value: "var(--letter-spacing-tight, -0.02em)" },
-      { name: "Normal", value: "var(--letter-spacing-normal, 0em)" },
-      { name: "Relaxed", value: "var(--letter-spacing-wide, 0.02em)" },
-      { name: "Loose", value: "var(--letter-spacing-wide, 0.04em)" },
-    ],
-    lineHeight: [
-      { name: "None", value: "var(--line-height-none, 1)" },
-      { name: "Tight", value: "var(--line-height-tight, 1.2)" },
-      { name: "Normal", value: "var(--line-height-normal, 1.5)" },
-      { name: "Relaxed", value: "var(--line-height-relaxed, 1.8)" },
-      { name: "Loose", value: "var(--line-height-loose, 2)" },
-    ],
+    fontSize: Object.entries(luluTypeScale).map(([key, scale]) => ({
+      name: luluTokenLabel(key),
+      value: scale.fontSize,
+    })),
+    fontWeight: Object.entries(luluFontWeights).map(([key, weight]) => ({
+      name: luluTokenLabel(key),
+      value: String(weight),
+    })),
+    letterSpacing: Object.entries(luluTypeScale).map(([key, scale]) => ({
+      name: luluTokenLabel(key),
+      value: scale.letterSpacing,
+    })),
+    lineHeight: Object.entries(luluTypeScale).map(([key, scale]) => ({
+      name: luluTokenLabel(key),
+      value: scale.lineHeight,
+    })),
   },
 });
 Builder.register("insertMenu", {
@@ -603,4 +606,166 @@ Builder.registerComponent(CustomText, {
       ],
     },
   ],
+});
+
+Builder.register("insertMenu", {
+  name: "Lulu Components",
+  items: [
+    { name: "LuluHero" },
+    { name: "LuluProductCard" },
+    { name: "LuluCategoryCard" },
+    { name: "LuluButton" },
+    { name: "LuluHeadline" },
+    { name: "LuluCategoryTitle" },
+    { name: "LuluText" },
+    { name: "LuluVideoCard" },
+  ],
+});
+
+Builder.registerComponent(LuluHero, {
+  name: "LuluHero",
+  inputs: [
+    {
+      name: "image",
+      type: "file",
+      required: true,
+      defaultValue:
+        "https://images.lululemon.com/is/image/lululemon/NA_July26_Wk3_M_Train_Hero_Carousel_D_WhatsNew_MLP?wid=1600&fmt=webp&qlt=80",
+    },
+    { name: "imageAlt", type: "string", defaultValue: "lululemon" },
+    { name: "title", type: "string", defaultValue: "Lock in. Level up." },
+    {
+      name: "subtitle",
+      type: "string",
+      defaultValue:
+        "The seamless Metal Vent Tech Shirt lets you find your focus, then your limit.",
+    },
+    { name: "ctaLabel", type: "string", defaultValue: "Shop What's New" },
+    { name: "ctaHref", type: "url", defaultValue: "/lulu/products" },
+  ],
+});
+
+Builder.registerComponent(LuluProductCard, {
+  name: "LuluProductCard",
+  inputs: [
+    {
+      name: "name",
+      type: "string",
+      required: true,
+      defaultValue: "Metal Vent Tech Short-Sleeve Shirt",
+    },
+    { name: "price", type: "string", required: true, defaultValue: "$78" },
+    {
+      name: "image",
+      type: "file",
+      required: true,
+      defaultValue:
+        "https://images.lululemon.com/is/image/lululemon/LM3FT0S_074134_1?wid=800&fmt=webp&qlt=80",
+    },
+    { name: "colorCount", type: "number", defaultValue: 6 },
+  ],
+});
+
+Builder.registerComponent(LuluCategoryCard, {
+  name: "LuluCategoryCard",
+  inputs: [
+    { name: "label", type: "string", required: true, defaultValue: "Shorts" },
+    {
+      name: "image",
+      type: "file",
+      required: true,
+      defaultValue:
+        "https://images.lululemon.com/is/image/lululemon/NA_July26_Wk3_M_Train_6UP_Feature_D_PaceBreaker?wid=600&fmt=webp&qlt=80",
+    },
+    { name: "href", type: "url", defaultValue: "/lulu/products" },
+  ],
+});
+
+// Note: the Lulu text-based components below (Button/Headline/CategoryTitle/
+// Text) render their "children" prop as plain text. Registering them with
+// `canHaveChildren`/`withChildren` instead would make Builder insert a
+// nested Text block inside a wrapper box when dragged into the canvas -
+// a plain "children" string input renders as flat text with no extra
+// nesting.
+Builder.registerComponent(LuluButton, {
+  name: "LuluButton",
+  inputs: [
+    { name: "children", type: "string", defaultValue: "Shop now" },
+    { name: "href", type: "url", defaultValue: "/lulu" },
+    {
+      name: "variant",
+      type: "string",
+      enum: ["primary", "secondary"],
+      defaultValue: "primary",
+    },
+  ],
+});
+
+Builder.registerComponent(LuluHeadline, {
+  name: "LuluHeadline",
+  inputs: [
+    { name: "children", type: "string", defaultValue: "Lock in. Level up." },
+    {
+      name: "size",
+      type: "string",
+      enum: ["xl", "lg", "md", "sm"],
+      defaultValue: "lg",
+    },
+    {
+      name: "as",
+      type: "string",
+      enum: ["h1", "h2", "h3", "h4"],
+      defaultValue: "h2",
+    },
+  ],
+});
+
+Builder.registerComponent(LuluCategoryTitle, {
+  name: "LuluCategoryTitle",
+  inputs: [{ name: "children", type: "string", defaultValue: "Shorts" }],
+});
+
+Builder.registerComponent(LuluText, {
+  name: "LuluText",
+  inputs: [
+    { name: "children", type: "string", defaultValue: "Body copy goes here." },
+    {
+      name: "size",
+      type: "string",
+      enum: ["lg", "md", "sm"],
+      defaultValue: "md",
+    },
+    {
+      name: "tone",
+      type: "string",
+      enum: ["ink", "stone"],
+      defaultValue: "ink",
+    },
+    {
+      name: "as",
+      type: "string",
+      enum: ["p", "span", "div"],
+      defaultValue: "p",
+    },
+  ],
+});
+
+Builder.registerComponent(LuluVideoCard, {
+  name: "LuluVideoCard",
+  inputs: [
+    {
+      name: "youtubeUrl",
+      type: "url",
+      required: true,
+      defaultValue: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    },
+    { name: "overlayText", type: "string", defaultValue: "Train harder" },
+    {
+      name: "fit",
+      type: "string",
+      enum: ["fitHeight", "pictureBox"],
+      defaultValue: "fitHeight",
+    },
+  ],
+  defaultStyles: { width: "25%" },
 });

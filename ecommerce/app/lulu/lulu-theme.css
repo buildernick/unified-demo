@@ -1,0 +1,37 @@
+/**
+ * Lulu theme scope.
+ *
+ * The root app layout wraps every page in a centered, max-width Tailwind
+ * `.container`. Lulu pages are full-bleed, so `.lulu-page` cancels that
+ * container out and `.lulu-theme` carries the base color/typography tokens
+ * as CSS variables for anything that needs them outside of Tailwind
+ * classes (e.g. raw CSS in future Lulu components).
+ */
+
+.lulu-page {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.lulu-theme {
+  --lulu-color-ink: #140f0f;
+  --lulu-color-ink-muted: rgba(20, 15, 15, 0.6);
+  --lulu-color-canvas: #fafafa;
+  --lulu-color-surface: #ffffff;
+  --lulu-color-sand: #efeeec;
+  --lulu-color-bone: #fdfdf6;
+  --lulu-color-stone: #8d9196;
+  --lulu-color-line: rgba(20, 15, 15, 0.3);
+  --lulu-color-accent: #de212f;
+  --lulu-color-overlay: rgba(20, 15, 15, 0.66);
+
+  --lulu-font-display: "Saans", "Helvetica Neue", Helvetica, Roboto, sans-serif;
+  --lulu-font-body: "Calibre", "Helvetica Neue", Helvetica, Roboto, sans-serif;
+
+  background-color: var(--lulu-color-canvas);
+  color: var(--lulu-color-ink);
+  font-family: var(--lulu-font-body);
+}
