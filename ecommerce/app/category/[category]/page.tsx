@@ -59,6 +59,8 @@ export default async function CategoryPage(props: CategoryPageProps) {
     builder.getAll("plp-tile", {
       userAttributes: { category },
       locale: "en-US",
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     }),
     fetchProducts(category),
     fetchColorMap(),

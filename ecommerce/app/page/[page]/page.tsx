@@ -25,7 +25,9 @@ export default async function Page(props: PageProps) {
         urlPath: "/page/" + (props?.params?.page || ""),
         locale,
       },
-      locale
+      locale,
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     // Convert the result to a promise
     .toPromise();

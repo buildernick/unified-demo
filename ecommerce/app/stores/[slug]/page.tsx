@@ -19,6 +19,8 @@ export default async function StorePage(props: PageProps) {
     .get("store-data", {
       query: { "data.slug": storeSlug },
       prerender: false,
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     .toPromise();
 
@@ -28,6 +30,8 @@ export default async function StorePage(props: PageProps) {
         urlPath: `/${storeSlug}`,
       },
       prerender: false,
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     .toPromise();
 

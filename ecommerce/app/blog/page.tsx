@@ -29,6 +29,8 @@ export default async function BlogPage(props: BlogPageProps) {
       //     }
       // }
       locale: "en-US",
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     });
   // Convert the result to a promise
   const blogCategories = await builder
@@ -36,6 +38,8 @@ export default async function BlogPage(props: BlogPageProps) {
     .getAll(builderBlogCategoryModelName, {
       fields: "id,data.name",
       locale: "en-US",
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     });
 
   return (

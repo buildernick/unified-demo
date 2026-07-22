@@ -19,13 +19,20 @@ export default async function RootLayout({
 
   const [headerContent, bannerContent] = await Promise.all([
     builder
-      .get("header-links", { fields: "data", options: { locale } })
+      .get("header-links", {
+        fields: "data",
+        options: { locale },
+        cachebust: true,
+        fetchOptions: { cache: "no-store" },
+      })
       .toPromise()
       .catch(() => null),
     builder
       .get("banner", {
         userAttributes: { loggedIn: true },
         options: { locale },
+        cachebust: true,
+        fetchOptions: { cache: "no-store" },
       })
       .toPromise()
       .catch(() => null),
