@@ -22,6 +22,8 @@ export default async function BlogPage(props: BlogPageProps) {
   const blogData = await builder
     // Get the page content from Builder with the specified options
     .getAll(builderBlogModelName, {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       fields: "data,id",
       // query: {
       //     data: {
@@ -34,6 +36,8 @@ export default async function BlogPage(props: BlogPageProps) {
   const blogCategories = await builder
     // Get the page content from Builder with the specified options
     .getAll(builderBlogCategoryModelName, {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       fields: "id,data.name",
       locale: "en-US",
     });

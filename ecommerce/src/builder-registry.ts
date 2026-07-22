@@ -24,6 +24,7 @@ import { LuluHeadline } from "./lulu/components/LuluHeadline";
 import { LuluCategoryTitle } from "./lulu/components/LuluCategoryTitle";
 import { LuluText } from "./lulu/components/LuluText";
 import { LuluVideoCard } from "./lulu/components/LuluVideoCard";
+import { LuluHlsVideoCard } from "./lulu/components/LuluHlsVideoCard";
 import {
   luluColors,
   luluFonts,
@@ -619,6 +620,7 @@ Builder.register("insertMenu", {
     { name: "LuluCategoryTitle" },
     { name: "LuluText" },
     { name: "LuluVideoCard" },
+    { name: "LuluHlsVideoCard" },
   ],
 });
 
@@ -768,4 +770,38 @@ Builder.registerComponent(LuluVideoCard, {
     },
   ],
   defaultStyles: { width: "25%" },
+});
+
+Builder.registerComponent(LuluHlsVideoCard, {
+  name: "LuluHlsVideoCard",
+  defaultStyles: { width: "25%" },
+  inputs: [
+    {
+      name: "videoEntry",
+      friendlyName: "Video (from Lulu Videos library)",
+      type: "reference",
+      model: "lulu-video",
+      required: false,
+      defaultValue: {
+        "@type": "@builder.io/core:Reference",
+        id: "63f2ce2bdfab4e1fa0343b7d8a43d1d9_b001e0a6859841489704bc7c051b97a8",
+        model: "lulu-video",
+      },
+    },
+    {
+      name: "videoUrl",
+      friendlyName: "Or paste a custom video URL",
+      type: "string",
+      required: false,
+      defaultValue: "",
+    },
+    { name: "posterUrl", type: "file" },
+    { name: "overlayText", type: "string", defaultValue: "Train harder" },
+    {
+      name: "fit",
+      type: "string",
+      enum: ["fitHeight", "pictureBox"],
+      defaultValue: "fitHeight",
+    },
+  ],
 });

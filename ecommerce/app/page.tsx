@@ -17,6 +17,8 @@ export default async function Homepage(props: PageProps) {
   const content = await builder
     // Get the page content from Builder with the specified options
     .get(builderModelName, {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       userAttributes: {
         loggedIn: true,
       },

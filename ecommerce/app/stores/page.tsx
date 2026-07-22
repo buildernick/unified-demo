@@ -9,6 +9,8 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 export default async function Page(props: { params: { page: any[] } }) {
   const content = await builder
     .get("store-page", {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       userAttributes: {
         urlPath: "/" + (props?.params?.page?.join("/") || ""),
       },

@@ -17,6 +17,8 @@ export default async function StorePage(props: PageProps) {
 
   const storeData = await builder
     .get("store-data", {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       query: { "data.slug": storeSlug },
       prerender: false,
     })
@@ -24,6 +26,8 @@ export default async function StorePage(props: PageProps) {
 
   const storeLocations = await builder
     .get("store-locations", {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       userAttributes: {
         urlPath: `/${storeSlug}`,
       },

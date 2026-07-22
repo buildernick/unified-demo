@@ -7,6 +7,7 @@ import { LuluHeadline } from "@/src/lulu/components/LuluHeadline";
 import { LuluCategoryTitle } from "@/src/lulu/components/LuluCategoryTitle";
 import { LuluText } from "@/src/lulu/components/LuluText";
 import { LuluVideoCard } from "@/src/lulu/components/LuluVideoCard";
+import { LuluHlsVideoCard } from "@/src/lulu/components/LuluHlsVideoCard";
 import { luluCategories, luluProducts } from "@/src/lulu/sample-data";
 
 function GallerySection({
@@ -167,6 +168,18 @@ export default function LuluComponentGalleryPage() {
               fit=&quot;pictureBox&quot; (letterboxed)
             </LuluText>
           </div>
+        </div>
+      </GallerySection>
+
+      <GallerySection
+        title="HLS video card"
+        description="src/lulu/components/LuluHlsVideoCard.tsx — for direct .m3u8/.mp4 sources (e.g. lululemon's Scene7 CDN), played via hls.js instead of an embedded player."
+      >
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
+          <LuluHlsVideoCard
+            videoUrl="https://s7mbrstream.scene7.com/hls-vod/lululemon/_media_/6cd/6cd2d16c-1614-4979-b11e-e4741e661207.mp4.m3u8"
+            overlayText="Your unwind uniform."
+          />
         </div>
       </GallerySection>
 

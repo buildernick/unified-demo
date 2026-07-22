@@ -19,6 +19,8 @@ export default async function ProductPage(props: ProductPageProps) {
   const productData = await builder
     // Get the page content from Builder with the specified options
     .get(builderProductDataModel, {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       query: {
         data: {
           handle: props?.params?.handle,
@@ -32,6 +34,8 @@ export default async function ProductPage(props: ProductPageProps) {
   const productDetailsContent = await builder
     // Get the page content from Builder with the specified options
     .get(builderProductDetailsModel, {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       userAttributes: {
         // Use the page path specified in the URL to fetch the content
         product: props?.params?.handle,

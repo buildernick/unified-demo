@@ -37,6 +37,7 @@ async function fetchColorMap(): Promise<Record<string, string>> {
     apiKey: API_KEY,
     limit: "20",
     noCache: "true",
+    cachebust: String(Date.now()),
     fields: "id,data.name",
   });
   const res = await fetch(
@@ -57,6 +58,8 @@ export default async function CategoryPage(props: CategoryPageProps) {
 
   const [plpTileContent, productDetailsContent, colorIdToName] = await Promise.all([
     builder.getAll("plp-tile", {
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
       userAttributes: { category },
       locale: "en-US",
     }),
