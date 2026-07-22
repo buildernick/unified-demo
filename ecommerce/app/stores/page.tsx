@@ -12,6 +12,8 @@ export default async function Page(props: { params: { page: any[] } }) {
       userAttributes: {
         urlPath: "/" + (props?.params?.page?.join("/") || ""),
       },
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     .toPromise();
 

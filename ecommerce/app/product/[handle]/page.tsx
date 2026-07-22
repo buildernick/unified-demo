@@ -25,6 +25,8 @@ export default async function ProductPage(props: ProductPageProps) {
         },
       },
       locale: "en-US",
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     // Convert the result to a promise
     .toPromise();
@@ -39,6 +41,8 @@ export default async function ProductPage(props: ProductPageProps) {
         options: { enrich: true },
       },
       locale: "en-US",
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     // Convert the result to a promise
     .toPromise();

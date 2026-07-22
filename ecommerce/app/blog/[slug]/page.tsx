@@ -24,6 +24,8 @@ export default async function BlogPage(props: BlogPageProps) {
         },
       },
       locale: "en-US",
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     // Convert the result to a promise
     .toPromise();
@@ -36,6 +38,8 @@ export default async function BlogPage(props: BlogPageProps) {
         urlPath: `/blog/${props?.params?.slug}`,
       },
       locale: "en-US",
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     // Convert the result to a promise
     .toPromise();

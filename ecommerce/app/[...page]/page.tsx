@@ -28,6 +28,8 @@ export default async function Page(props: PageProps) {
       },
       // When content is localized in-page, the locale should be passed directly to the options
       locale: locale,
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     // Convert the result to a promise
     .toPromise();

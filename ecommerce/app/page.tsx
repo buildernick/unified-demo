@@ -20,6 +20,8 @@ export default async function Homepage(props: PageProps) {
       userAttributes: {
         loggedIn: true,
       },
+      cachebust: true,
+      fetchOptions: { cache: "no-store" },
     })
     // Convert the result to a promise
     .toPromise();
