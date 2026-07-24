@@ -8,6 +8,7 @@ import { LuluCategoryTitle } from "@/src/lulu/components/LuluCategoryTitle";
 import { LuluText } from "@/src/lulu/components/LuluText";
 import { LuluVideoCard } from "@/src/lulu/components/LuluVideoCard";
 import { LuluHlsVideoCard } from "@/src/lulu/components/LuluHlsVideoCard";
+import { LuluCarousel } from "@/src/lulu/components/LuluCarousel";
 import { luluCategories, luluProducts } from "@/src/lulu/sample-data";
 
 function GallerySection({
@@ -181,6 +182,18 @@ export default function LuluComponentGalleryPage() {
             overlayText="Your unwind uniform."
           />
         </div>
+      </GallerySection>
+
+      <GallerySection
+        title="Carousel"
+        description="src/lulu/components/LuluCarousel.tsx — horizontal product carousel with prev/next controls and a CTA button. In Builder CMS it can show a whole Lulu Product collection (Scuba, Steady State, Softstreme) or a hand-picked list of Lulu Products."
+      >
+        <LuluCarousel
+          mode="collection"
+          collection="Scuba"
+          ctaLabel="Shop Scuba"
+          ctaHref="/lulu/products"
+        />
       </GallerySection>
 
       <LuluFooter />

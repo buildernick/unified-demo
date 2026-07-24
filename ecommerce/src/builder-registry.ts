@@ -25,6 +25,7 @@ import { LuluCategoryTitle } from "./lulu/components/LuluCategoryTitle";
 import { LuluText } from "./lulu/components/LuluText";
 import { LuluVideoCard } from "./lulu/components/LuluVideoCard";
 import { LuluHlsVideoCard } from "./lulu/components/LuluHlsVideoCard";
+import { LuluCarousel } from "./lulu/components/LuluCarousel";
 import {
   luluColors,
   luluFonts,
@@ -621,6 +622,7 @@ Builder.register("insertMenu", {
     { name: "LuluText" },
     { name: "LuluVideoCard" },
     { name: "LuluHlsVideoCard" },
+    { name: "LuluCarousel" },
   ],
 });
 
@@ -803,5 +805,48 @@ Builder.registerComponent(LuluHlsVideoCard, {
       enum: ["fitHeight", "pictureBox"],
       defaultValue: "fitHeight",
     },
+  ],
+});
+
+Builder.registerComponent(LuluCarousel, {
+  name: "LuluCarousel",
+  friendlyName: "Lulu Carousel",
+  inputs: [
+    {
+      name: "mode",
+      friendlyName: "Show",
+      type: "string",
+      enum: [
+        { label: "A whole collection", value: "collection" },
+        { label: "Specific products", value: "products" },
+      ],
+      defaultValue: "collection",
+      helperText:
+        "Display every Lulu Product tagged with a collection, or hand-pick specific Lulu Products.",
+    },
+    {
+      name: "collection",
+      type: "string",
+      enum: ["Scuba", "Steady State", "Softstreme"],
+      defaultValue: "Scuba",
+      showIf: (options: any) => options.get("mode") === "collection",
+    },
+    {
+      name: "products",
+      friendlyName: "Lulu products",
+      type: "list",
+      showIf: (options: any) => options.get("mode") === "products",
+      subFields: [
+        {
+          name: "product",
+          friendlyName: "Lulu product",
+          type: "reference",
+          model: "lulu-product",
+          required: true,
+        },
+      ],
+    },
+    { name: "ctaLabel", type: "string", defaultValue: "Shop now" },
+    { name: "ctaHref", type: "url", defaultValue: "/lulu/products" },
   ],
 });
