@@ -195,7 +195,7 @@ export default async function LuluLoungewearPage() {
                 alt="Comfort takes shape"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover pt-[42px]"
+                className="object-cover pt-10"
               />
             </div>
             <div className="mt-10 flex flex-col gap-4">
