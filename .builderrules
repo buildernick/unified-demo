@@ -1,0 +1,32 @@
+# Builder Rules
+
+Project-specific instructions for Builder when working in this repo.
+
+## Project
+
+- App lives in `ecommerce/`. It's a Next.js + TypeScript + Tailwind CSS project.
+- Package manager: npm (see `ecommerce/package.json` / `package-lock.json`).
+
+## Design tokens
+
+- The "Lulu" theme tokens (colors, fonts, type scale, spacing, radii) live in
+  `ecommerce/src/lulu/tokens.ts` and are wired into `ecommerce/tailwind.config.ts`.
+- Reuse existing tokens/utility classes instead of hardcoding new colors, font
+  sizes, or one-off spacing values on `/lulu` pages.
+- The Lulu spacing scale lines up 1:1 with Tailwind's default spacing scale,
+  so plain utilities (`p-16`, `gap-6`, `mt-10`, etc.) already match it —
+  no custom spacing classes needed.
+
+## Code style
+
+- Prefer editing existing files over creating new ones.
+- Do not add comments unless explaining a non-obvious "why".
+- Do not add abstractions, error handling, or config options beyond what the
+  task requires.
+- Match existing formatting and naming conventions in the file being edited.
+
+## Workflow
+
+- Do not run `git commit`, `git push`, or create branches directly — the
+  platform handles commits automatically and pushing/PRs go through the UI.
+- Test UI changes in the live preview before considering a task done.
