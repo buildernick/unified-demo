@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { LuluVideoPlayer } from "@/src/lulu/components/LuluVideoPlayer";
+import { LuluDragSwatchStack } from "@/src/lulu/components/LuluDragSwatchStack";
 import {
   LuluProductCarousel,
   type LuluProductCarouselItem,
@@ -122,6 +123,23 @@ export default async function LuluLoungewearPage() {
               className="object-cover"
             />
           </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-16 md:px-10 md:pb-24">
+        <div className="mx-auto max-w-[1560px]">
+          <h3 className="mb-8 text-center font-lulu-display text-lulu-display-md text-lulu-ink">
+            Find your fabric.
+          </h3>
+          <p className="mx-auto mb-8 max-w-xl text-center font-lulu-display text-lulu-body-md text-lulu-ink">
+            Drag the top swatch left or right to see what&rsquo;s next.
+          </p>
+          <LuluDragSwatchStack
+            items={lineup.map((item) => ({
+              label: item.label,
+              image: item.image,
+            }))}
+          />
         </div>
       </section>
 
