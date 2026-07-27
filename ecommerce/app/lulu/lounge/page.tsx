@@ -68,15 +68,13 @@ const lineup = [
 ];
 
 export default async function LuluLoungewearPage() {
-  const [heroVideoUrl, comfortVideoUrl, scubaProducts, steadyStateProducts] = await Promise.all([
+  const [heroVideoUrl, comfortVideoUrl, scubaProducts] = await Promise.all([
     getLuluVideoUrl("Lulu Video 15"),
     getLuluVideoUrl("Lulu Video 1"),
     getLuluProductsByCollection("Scuba"),
-    getLuluProductsByCollection("Steady State"),
   ]);
 
   const versatilityProducts = toCarouselItems(scubaProducts);
-  const luxuryProducts = toCarouselItems(steadyStateProducts);
 
   return (
     <>
@@ -143,7 +141,7 @@ export default async function LuluLoungewearPage() {
                 key={item.label}
                 href={item.href}
                 aria-label={item.label}
-                className="group flex flex-col items-center gap-4"
+                className="flex flex-col items-center gap-4"
               >
                 <div className="relative aspect-[5/6] w-full overflow-hidden">
                   <Image
@@ -151,7 +149,7 @@ export default async function LuluLoungewearPage() {
                     alt={item.label}
                     fill
                     sizes="(min-width: 768px) 25vw, 50vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-125"
+                    className="object-cover"
                   />
                 </div>
                 <p className="font-lulu-display text-lulu-body-md text-lulu-ink">
@@ -228,18 +226,6 @@ export default async function LuluLoungewearPage() {
         </div>
       </section>
 
-      <section className="px-6 pb-16 md:px-10 md:pb-24">
-        <div className="mx-auto max-w-[1560px]">
-          <h3 className="mb-8 font-lulu-display text-lulu-display-md text-lulu-ink">
-            Luxury, made standard.
-          </h3>
-          <LuluProductCarousel
-            products={luxuryProducts}
-            ctaLabel="Shop Steady State"
-            ctaHref="https://shop.lululemon.com/c/women-steady-state-clothes/n14uwkzk0lg?icid=cdp-story:lounge-shop;4;ctacontentcard;cdp:womens-steady-state-clothes;campaigns;loungeshop"
-          />
-        </div>
-      </section>
     </>
   );
 }
