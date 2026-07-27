@@ -1,82 +1,44 @@
 import Image from "next/image";
 import { LuluVideoPlayer } from "@/src/lulu/components/LuluVideoPlayer";
-import { LuluProductCarousel } from "@/src/lulu/components/LuluProductCarousel";
+import {
+  LuluProductCarousel,
+  type LuluProductCarouselItem,
+} from "@/src/lulu/components/LuluProductCarousel";
+import {
+  getLuluProductsByCollection,
+  getLuluVideoUrl,
+  type LuluProductEntry,
+} from "@/lib/contentful/api";
 
-const versatilityProducts = [
-  {
-    title: "Scuba Full-Zip Hoodie",
-    price: "$138.00",
-    href: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Hoodie-IV/_/prod8351133?color=42797",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW3JGYS_042797_1?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-  {
-    title: "Scuba Mid-Rise Oversized Jogger *Regular",
-    price: "$118.00",
-    href: "https://shop.lululemon.com/p/womens-joggers/Scuba-MR-Oversized-Jogger-Regular/_/prod11670121?color=30437",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW5HJHS_030437_1?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-  {
-    title: "Scuba Oversized Full-Zip Hoodie *Waffle",
-    price: "$148.00",
-    href: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Oversized-Full-Zip-Hoodie-Waffle/_/prod20004531?color=36168",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW3JCVS_036168_1?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-  {
-    title: "Scuba Mid-Rise Wide-Leg Pant *Waffle",
-    price: "$148.00",
-    href: "https://shop.lululemon.com/p/womens-sweatpants/Scuba-Mid-Rise-Wide-Leg-Pant-Waffle/_/prod20004467?color=32925",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW5HFQS_032925_1?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-  {
-    title: "Scuba Full-Zip Hoodie",
-    price: "$138.00",
-    href: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Hoodie-IV/_/prod8351133?color=42797",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW3JGYS_042797_2?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-  {
-    title: "Scuba Mid-Rise Oversized Jogger *Regular",
-    price: "$118.00",
-    href: "https://shop.lululemon.com/p/womens-joggers/Scuba-MR-Oversized-Jogger-Regular/_/prod11670121?color=30437",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW5HJHS_030437_2?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-];
+const PRODUCT_HREFS: Record<string, string> = {
+  "Scuba Full-Zip Hoodie":
+    "https://shop.lululemon.com/p/womens-outerwear/Scuba-Hoodie-IV/_/prod8351133?color=42797",
+  "Scuba Mid-Rise Oversized Jogger *Regular":
+    "https://shop.lululemon.com/p/womens-joggers/Scuba-MR-Oversized-Jogger-Regular/_/prod11670121?color=30437",
+  "Scuba Oversized Full-Zip Hoodie *Waffle":
+    "https://shop.lululemon.com/p/womens-outerwear/Scuba-Oversized-Full-Zip-Hoodie-Waffle/_/prod20004531?color=36168",
+  "Scuba Mid-Rise Wide-Leg Pant *Waffle":
+    "https://shop.lululemon.com/p/womens-sweatpants/Scuba-Mid-Rise-Wide-Leg-Pant-Waffle/_/prod20004467?color=32925",
+  "Women's Steady State SuperLoft Hoodie *Wider Cuff":
+    "https://shop.lululemon.com/p/womens-steady-state-superloft-hoodie-wide-cuff/mxzwnxmd1f?color=75700",
+  "Women's Steady State SuperLoft Pant *Regular":
+    "https://shop.lululemon.com/p/womens-steady-state-superloft-pant-regular/buhfealuxw?color=75700",
+  "Women's Steady State SuperLoft Crew *Wider Cuff":
+    "https://shop.lululemon.com/p/womens-steady-state-superloft-crew-wider-cuff/vlxelc6oi5?color=0284",
+  "Women's Steady State SuperLoft Jogger":
+    "https://shop.lululemon.com/p/womens-steady-state-superloft-jogger/dk9wcfq3p3?color=75700",
+};
 
-const steadyStateProducts = [
-  {
-    title: "Women's Steady State SuperLoft Hoodie *Wider Cuff",
-    price: "$108.00",
-    href: "https://shop.lululemon.com/p/womens-steady-state-superloft-hoodie-wide-cuff/mxzwnxmd1f?color=75700",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW3KR5S_075700_1?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-  {
-    title: "Women's Steady State SuperLoft Pant *Regular",
-    price: "$98.00",
-    href: "https://shop.lululemon.com/p/womens-steady-state-superloft-pant-regular/buhfealuxw?color=75700",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW5IUQS_075700_1?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-  {
-    title: "Women's Steady State SuperLoft Crew *Wider Cuff",
-    price: "$98.00",
-    href: "https://shop.lululemon.com/p/womens-steady-state-superloft-crew-wider-cuff/vlxelc6oi5?color=0284",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW3KRCS_0284_1?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-  {
-    title: "Women's Steady State SuperLoft Jogger",
-    price: "$98.00",
-    href: "https://shop.lululemon.com/p/womens-steady-state-superloft-jogger/dk9wcfq3p3?color=75700",
-    image:
-      "https://images.lululemon.com/is/image/lululemon/LW5IUMS_075700_1?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
-  },
-];
+function toCarouselItems(products: LuluProductEntry[]): LuluProductCarouselItem[] {
+  return products
+    .filter((product) => product.image1)
+    .map((product) => ({
+      title: product.name,
+      price: product.price,
+      href: PRODUCT_HREFS[product.name] ?? "#",
+      image: product.image1!,
+    }));
+}
 
 const lineup = [
   {
@@ -105,7 +67,17 @@ const lineup = [
   },
 ];
 
-export default function LuluLoungewearPage() {
+export default async function LuluLoungewearPage() {
+  const [heroVideoUrl, comfortVideoUrl, scubaProducts, steadyStateProducts] = await Promise.all([
+    getLuluVideoUrl("Lulu Video 15"),
+    getLuluVideoUrl("Lulu Video 1"),
+    getLuluProductsByCollection("Scuba"),
+    getLuluProductsByCollection("Steady State"),
+  ]);
+
+  const versatilityProducts = toCarouselItems(scubaProducts);
+  const luxuryProducts = toCarouselItems(steadyStateProducts);
+
   return (
     <>
       <section className="px-6 pb-8 pt-16 md:px-10 md:pt-16">
@@ -117,10 +89,7 @@ export default function LuluLoungewearPage() {
       </section>
 
       <section className="relative flex h-[420px] items-center justify-center overflow-hidden md:h-[600px]">
-        <LuluVideoPlayer
-          fill
-          videoUrl="https://s7mbrstream.scene7.com/hls-vod/lululemon/_media_/3c9/3c92c72b-1645-4294-a2c3-646de58d1b50.mp4.m3u8"
-        />
+        <LuluVideoPlayer fill videoUrl={heroVideoUrl} />
         <h2 className="relative px-6 text-center font-lulu-display text-lulu-display-xl text-lulu-bone">
           Expand your comfort zone
         </h2>
@@ -240,7 +209,7 @@ export default function LuluLoungewearPage() {
             </div>
           </div>
           <LuluVideoPlayer
-            videoUrl="https://s7mbrstream.scene7.com/hls-vod/lululemon/_media_/073/07398023-6ec3-463f-81c5-289f69290278.mp4.m3u8"
+            videoUrl={comfortVideoUrl}
             posterUrl="https://images.lululemon.com/is/image/lululemon/Nov25_Wk2_W_Loungewear_StoryPage_D_Scuba_SilhouetteEdit_PosterFrame_5x6_1440x1800"
           />
         </div>
@@ -265,7 +234,7 @@ export default function LuluLoungewearPage() {
             Luxury, made standard.
           </h3>
           <LuluProductCarousel
-            products={steadyStateProducts}
+            products={luxuryProducts}
             ctaLabel="Shop Steady State"
             ctaHref="https://shop.lululemon.com/c/women-steady-state-clothes/n14uwkzk0lg?icid=cdp-story:lounge-shop;4;ctacontentcard;cdp:womens-steady-state-clothes;campaigns;loungeshop"
           />
