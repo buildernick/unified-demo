@@ -224,6 +224,7 @@ export default async function LuluLoungewearPage() {
             products={versatilityProducts}
             ctaLabel="Shop Scuba"
             ctaHref="https://shop.lululemon.com/c/women-scuba-clothes/n14uwkz9uld?icid=cdp-story:lounge-shop;7;featuregridcta;cdp:womens-scuba-clothes;campaigns;loungeshop"
+            ctaVariant="secondary"
           />
         </div>
       </section>
@@ -237,6 +238,7 @@ export default async function LuluLoungewearPage() {
             products={steadyStateCarouselProducts}
             ctaLabel="Shop Steady State"
             ctaHref="https://shop.lululemon.com/c/women-steady-state-clothes/n14uwkzk0lg?icid=cdp-story:lounge-shop;4;ctacontentcard;cdp:womens-steady-state-clothes;campaigns;loungeshop"
+            ctaVariant="secondary"
           />
         </div>
       </section>

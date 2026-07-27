@@ -15,12 +15,14 @@ type LuluProductCarouselProps = {
   products: LuluProductCarouselItem[];
   ctaLabel: string;
   ctaHref: string;
+  ctaVariant?: "primary" | "secondary";
 };
 
 export function LuluProductCarousel({
   products,
   ctaLabel,
   ctaHref,
+  ctaVariant,
 }: LuluProductCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -65,7 +67,7 @@ export function LuluProductCarousel({
       </div>
 
       <div className="mt-8 flex items-center justify-between">
-        <LuluButton href={ctaHref}>{ctaLabel}</LuluButton>
+        <LuluButton href={ctaHref} variant={ctaVariant}>{ctaLabel}</LuluButton>
 
         <div className="flex items-center rounded-full border border-lulu-ink p-1">
           <button
