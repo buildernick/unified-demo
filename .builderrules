@@ -16,6 +16,11 @@ Project-specific instructions for Builder when working in this repo.
 - The Lulu spacing scale lines up 1:1 with Tailwind's default spacing scale,
   so plain utilities (`p-16`, `gap-6`, `mt-10`, etc.) already match it —
   no custom spacing classes needed.
+- When applying visual-editor style changes (padding, margin, gap, etc.),
+  never emit Tailwind arbitrary-value classes (e.g. `pt-[42px]`) for raw
+  pixel diffs. Snap the value to the nearest step in `luluSpacing`
+  (`ecommerce/src/lulu/tokens.ts`) and use the matching Tailwind utility
+  instead of hardcoding the literal pixel value.
 
 ## Code style
 

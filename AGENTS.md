@@ -24,6 +24,10 @@ npm run dev
 
 - Use Tailwind utility classes; reuse existing Lulu tokens instead of
   hardcoding colors/spacing/font sizes on `/lulu` pages.
+- When translating visual-editor style edits into code, snap spacing values
+  to the nearest step in `luluSpacing` (`ecommerce/src/lulu/tokens.ts`)
+  rather than emitting Tailwind arbitrary-value classes (e.g. `pt-[42px]`)
+  for raw pixel diffs.
 - Keep components small and colocated with where they're used.
 - No unnecessary comments — code should be self-explanatory.
 
