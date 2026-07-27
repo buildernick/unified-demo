@@ -68,15 +68,13 @@ const lineup = [
 ];
 
 export default async function LuluLoungewearPage() {
-  const [heroVideoUrl, comfortVideoUrl, scubaProducts, steadyStateProducts] = await Promise.all([
+  const [heroVideoUrl, comfortVideoUrl, scubaProducts] = await Promise.all([
     getLuluVideoUrl("Lulu Video 15"),
     getLuluVideoUrl("Lulu Video 1"),
     getLuluProductsByCollection("Scuba"),
-    getLuluProductsByCollection("Steady State"),
   ]);
 
   const versatilityProducts = toCarouselItems(scubaProducts);
-  const steadyStateCarouselProducts = toCarouselItems(steadyStateProducts);
 
   return (
     <>
@@ -224,19 +222,6 @@ export default async function LuluLoungewearPage() {
             products={versatilityProducts}
             ctaLabel="Shop Scuba"
             ctaHref="https://shop.lululemon.com/c/women-scuba-clothes/n14uwkz9uld?icid=cdp-story:lounge-shop;7;featuregridcta;cdp:womens-scuba-clothes;campaigns;loungeshop"
-          />
-        </div>
-      </section>
-
-      <section className="px-6 pb-16 md:px-10 md:pb-24">
-        <div className="mx-auto max-w-[1560px]">
-          <h3 className="mb-8 font-lulu-display text-lulu-display-md text-lulu-ink">
-            Luxury, Made standard
-          </h3>
-          <LuluProductCarousel
-            products={steadyStateCarouselProducts}
-            ctaLabel="Shop Steady State"
-            ctaHref="https://shop.lululemon.com/c/women-steady-state-clothes/n14uwkzk0lg?icid=cdp-story:lounge-shop;7;featuregridcta;cdp:womens-steady-state-clothes;campaigns;loungeshop"
           />
         </div>
       </section>
