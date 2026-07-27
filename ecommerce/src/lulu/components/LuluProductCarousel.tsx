@@ -1,15 +1,27 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { LuluButton } from "@/src/lulu/components/LuluButton";
+import { useCart } from "@/src/context/CartContext";
 
 export type LuluProductCarouselItem = {
   title: string;
   price: string;
   href: string;
   image: string;
+  sizes?: string[];
 };
+
+const SIZE_ABBREVIATIONS: Record<string, string> = {
+  Small: "S",
+  Medium: "M",
+  Large: "L",
+};
+
+function parsePrice(price: string): number {
+  return parseFloat(price.replace(/[^0-9.]/g, "")) || 0;
+}
 
 type LuluProductCarouselProps = {
   products: LuluProductCarouselItem[];
@@ -23,6 +35,23 @@ export function LuluProductCarousel({
   ctaHref,
 }: LuluProductCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { addToCart } = useCart();
+  const [addedKey, setAddedKey] = useState<string | null>(null);
+
+  const handleAddToCart = (product: LuluProductCarouselItem, size: string) => {
+    const key = `${product.href}-${size}`;
+    addToCart({
+      id: key,
+      handle: product.href,
+      productName: product.title,
+      price: parsePrice(product.price),
+      image: product.image,
+      selectedColor: null,
+      selectedSize: size,
+    });
+    setAddedKey(key);
+    setTimeout(() => setAddedKey((current) => (current === key ? null : current)), 1500);
+  };
 
   const scroll = (direction: 1 | -1) => {
     const el = scrollRef.current;
@@ -43,7 +72,7 @@ export function LuluProductCarousel({
             key={index}
             data-carousel-card
             href={product.href}
-            className="flex w-[calc(50%-16px)] shrink-0 flex-col md:w-[calc(25%-24px)]"
+            className="group flex w-[calc(50%-16px)] shrink-0 flex-col md:w-[calc(25%-24px)]"
           >
             <div className="relative aspect-[5/6] w-full overflow-hidden">
               <Image
@@ -53,6 +82,29 @@ export function LuluProductCarousel({
                 sizes="(min-width: 768px) 25vw, 50vw"
                 className="object-cover"
               />
+              {!!product.sizes?.length && (
+                <div className="absolute inset-0 flex items-end justify-center gap-2 bg-lulu-ink/0 pb-6 opacity-0 transition-opacity duration-200 group-hover:bg-lulu-ink/20 group-hover:opacity-100">
+                  {product.sizes.map((size) => {
+                    const key = `${product.href}-${size}`;
+                    const isAdded = addedKey === key;
+                    return (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          event.stopPropagation();
+                          handleAddToCart(product, size);
+                        }}
+                        aria-label={`Add ${product.title}, size ${size}, to bag`}
+                        className="flex h-10 w-10 items-center justify-center border border-white font-lulu-display text-lulu-body-sm text-white transition-colors hover:bg-white hover:text-lulu-ink"
+                      >
+                        {isAdded ? "✓" : SIZE_ABBREVIATIONS[size] ?? size.charAt(0)}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
             <p className="mt-3 font-lulu-display text-lulu-product-title text-lulu-ink">
               {product.title}

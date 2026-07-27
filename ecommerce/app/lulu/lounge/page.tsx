@@ -37,6 +37,7 @@ function toCarouselItems(products: LuluProductEntry[]): LuluProductCarouselItem[
       price: product.price,
       href: PRODUCT_HREFS[product.name] ?? "#",
       image: product.image1!,
+      sizes: product.availableSizes ?? [],
     }));
 }
 
