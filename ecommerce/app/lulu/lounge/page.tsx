@@ -149,7 +149,7 @@ export default async function LuluLoungewearPage() {
                     alt={item.label}
                     fill
                     sizes="(min-width: 768px) 25vw, 50vw"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                    className="object-cover"
                   />
                 </div>
                 <p className="font-lulu-display text-lulu-body-md text-lulu-ink">
