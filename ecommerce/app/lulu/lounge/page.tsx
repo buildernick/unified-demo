@@ -143,7 +143,7 @@ export default async function LuluLoungewearPage() {
                 key={item.label}
                 href={item.href}
                 aria-label={item.label}
-                className="flex flex-col items-center gap-4"
+                className="group flex flex-col items-center gap-4"
               >
                 <div className="relative aspect-[5/6] w-full overflow-hidden">
                   <Image
@@ -151,7 +151,7 @@ export default async function LuluLoungewearPage() {
                     alt={item.label}
                     fill
                     sizes="(min-width: 768px) 25vw, 50vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-125"
                   />
                 </div>
                 <p className="font-lulu-display text-lulu-body-md text-lulu-ink">
