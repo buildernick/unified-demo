@@ -41,6 +41,39 @@ function toProductCardData(entry: any, includes: any) {
   };
 }
 
+export async function getLuluVideoUrl(title: string): Promise<string | undefined> {
+  const query = "content_type=luluVideo&fields.title=" + encodeURIComponent(title) + "&limit=1";
+  const res = await fetchEntries(query);
+  return res.items[0]?.fields?.url;
+}
+
+export type LuluProductEntry = {
+  name: string;
+  price: string;
+  image1?: string;
+  image2?: string;
+  image3?: string;
+  availableSizes?: string[];
+  collection?: string;
+};
+
+export async function getLuluProductsByCollection(collection: string): Promise<LuluProductEntry[]> {
+  const query =
+    "content_type=luluProduct&fields.collection=" +
+    encodeURIComponent(collection) +
+    "&order=sys.createdAt";
+  const res = await fetchEntries(query);
+  return res.items.map((item: any) => ({
+    name: item.fields.name,
+    price: item.fields.price,
+    image1: item.fields.image1,
+    image2: item.fields.image2,
+    image3: item.fields.image3,
+    availableSizes: item.fields.availableSizes,
+    collection: item.fields.collection,
+  }));
+}
+
 export async function getShopHomeSections() {
   const [heroRes, textRes, splitRes, gridRes, iconSectionRes] = await Promise.all([
     fetchEntries("content_type=shopImageHero&fields.page=home&include=1"),
