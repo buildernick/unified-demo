@@ -187,7 +187,7 @@ export default async function LuluLoungewearPage() {
       <section className="px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto grid max-w-[1560px] grid-cols-1 gap-6 md:grid-cols-2">
           <div className="flex flex-col">
-            <div className="relative aspect-[5/3] w-full overflow-hidden">
+            <div className="relative aspect-[5/3] w-full overflow-hidden pt-10">
               <Image
                 src="https://images.lululemon.com/is/image/lululemon/NA_Nov25_Wk2_W_Lounge_Storypage_FeatureScroll_D_Scuba_324x389_01?wid=2420&op_usm=0.5,2,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72"
                 alt="Comfort takes shape"
